@@ -3,7 +3,7 @@ byte [![Build Status](https://secure.travis-ci.org/fengmk2/byte.png)](http://tra
 
 ![logo](https://raw.github.com/fengmk2/byte/master/logo.png)
 
-Input Buffer and Output Buffer, just like Java `[ByteBuffer](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html)`.
+Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
 
 ## Install
 
