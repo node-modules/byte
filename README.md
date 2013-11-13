@@ -56,6 +56,20 @@ putLong()   x 1,279,507 ops/sec ±2.40% (92 runs sampled)
 [Wed Nov 13 2013 17:01:50 GMT+0800 (CST)] Fastest is "putChar()  "
 ```
 
+## Authors
+
+```bash
+$ git summary
+
+ project  : byte
+ repo age : 2 weeks
+ active   : 2 days
+ commits  : 4
+ files    : 13
+ authors  :
+     4  fengmk2                 100.0%
+```
+
 ## License
 
 (The MIT License)
