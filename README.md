@@ -42,7 +42,21 @@ bb.putShort(-50000);
 bb.putDouble(99.99999);
 ```
 
-## License 
+## Benchmark
+
+```bash
+$ node benchmark.js
+put()       x 12,028,872 ops/sec ±3.87% (87 runs sampled)
+putChar()   x 27,884,212 ops/sec ±1.75% (94 runs sampled)
+putShort()  x 1,924,297 ops/sec ±1.94% (96 runs sampled)
+putInt()    x 1,949,486 ops/sec ±0.59% (99 runs sampled)
+putFloat()  x 1,633,070 ops/sec ±1.14% (96 runs sampled)
+putDouble() x 1,138,782 ops/sec ±2.12% (94 runs sampled)
+putLong()   x 1,279,507 ops/sec ±2.40% (92 runs sampled)
+[Wed Nov 13 2013 17:01:50 GMT+0800 (CST)] Fastest is "putChar()  "
+```
+
+## License
 
 (The MIT License)
 
