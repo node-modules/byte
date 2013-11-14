@@ -22,7 +22,7 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putChar()', function () {
+  describe('putChar(), getChar()', function () {
     it('should put a char', function () {
       var bytes = ByteBuffer.allocate(2);
       bytes.putChar('a');
@@ -39,10 +39,20 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer 61 41 61 61 61>');
       bytes.putChar('a');
       bytes.toString().should.equal('<ByteBuffer 61 41 61 61 61 61>');
+
+      bytes.position(0);
+      bytes.getChar().should.equal('a');
+      bytes.getChar().should.equal('A');
+      bytes.getChar().should.equal('a');
+      bytes.getChar().should.equal('a');
+      bytes.getChar().should.equal('a');
+      bytes.getChar().should.equal('a');
+      bytes.getChar(1).should.equal('A');
+      bytes.position().should.equal(6);
     });
   });
 
-  describe('putFloat()', function () {
+  describe('putFloat(), getFloat()', function () {
     it('should put a float', function () {
       var cases = [
         // value, big, litter
@@ -56,23 +66,28 @@ describe('byte.test.js', function () {
         [999, '<ByteBuffer 44 79 c0 00>', '<ByteBuffer 00 c0 79 44>'],
         [99.999, '<ByteBuffer 42 c7 ff 7d>', '<ByteBuffer 7d ff c7 42>'],
         [1024, '<ByteBuffer 44 80 00 00>', '<ByteBuffer 00 00 80 44>'],
-        [12312877347.123123, '<ByteBuffer 50 37 79 e6>', '<ByteBuffer e6 79 37 50>']
+        [123123.125, '<ByteBuffer 47 f0 79 90>', '<ByteBuffer 90 79 f0 47>'],
       ];
       var bytes = ByteBuffer.allocate(4);
       bytes.putFloat(0);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00>');
+      bytes.position(0);
+      bytes.getFloat().should.equal(0);
       cases.forEach(function (item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[1]);
+        String(bytes.getFloat(0)).should.include(item[0]);
+
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[2]);
+        String(bytes.getFloat(0)).should.include(item[0]);
       });
     });
   });
 
-  describe('putInt()', function () {
+  describe('putInt(), getInt()', function () {
     it('should put an int', function () {
       var cases = [
         // value, big, litter
@@ -95,18 +110,23 @@ describe('byte.test.js', function () {
       var bytes = ByteBuffer.allocate(1);
       bytes.putInt(0);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00>');
+      bytes.position(0);
+      bytes.getInt().should.equal(0);
       cases.forEach(function (item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putInt(0, item[0]);
         bytes.toString().should.equal(item[1]);
+        bytes.getInt(0).should.equal(item[0]);
+
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putInt(0, item[0]);
         bytes.toString().should.equal(item[2]);
+        bytes.getInt(0).should.equal(item[0]);
       });
     });
   });
 
-  describe('putShort()', function () {
+  describe('putShort(), getShort()', function () {
     it('should put a short', function () {
       var cases = [
         // value, big, litter
@@ -129,18 +149,24 @@ describe('byte.test.js', function () {
       var bytes = ByteBuffer.allocate(1);
       bytes.putShort(0);
       bytes.toString().should.equal('<ByteBuffer 00 00>');
+      bytes.position(0);
+      bytes.getShort().should.equal(0);
+
       cases.forEach(function (item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putShort(0, item[0]);
         bytes.toString().should.equal(item[1]);
+        bytes.getShort(0).should.equal(item[0]);
+
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putShort(0, item[0]);
         bytes.toString().should.equal(item[2]);
+        bytes.getShort(0).should.equal(item[0]);
       });
     });
   });
 
-  describe('putLong()', function () {
+  describe('putLong(), getLong()', function () {
     it('should put a long', function () {
       var cases = [
         // value, big, litter
@@ -168,45 +194,65 @@ describe('byte.test.js', function () {
       var bytes = ByteBuffer.allocate(1);
       bytes.putLong(0);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00 00 00 00 00>');
+      bytes.position(0);
+      bytes.getLong().toString().should.equal('0');
       cases.forEach(function (item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putLong(0, item[0]);
         bytes.toString().should.equal(item[1]);
+        bytes.getLong(0).toString().should.equal(String(item[0]));
+
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putLong(0, item[0]);
         bytes.toString().should.equal(item[2]);
+        bytes.getLong(0).toString().should.equal(String(item[0]));
       });
     });
   });
 
-  describe('putDouble()', function () {
+  describe('putDouble(), getDouble()', function () {
     it('should put a double', function () {
       var bytes = ByteBuffer.allocate(2);
       bytes.putDouble(1);
       bytes.toString().should.equal('<ByteBuffer 3f f0 00 00 00 00 00 00>');
+      bytes.position(0);
+      bytes.getDouble().should.equal(1);
+
       bytes.putDouble(0, 0);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00 00 00 00 00>');
+      bytes.getDouble(0).should.equal(0);
+
       bytes.putDouble(0, 2);
       bytes.toString().should.equal('<ByteBuffer 40 00 00 00 00 00 00 00>');
+      bytes.getDouble(0).should.equal(2);
 
       bytes.putDouble(0, 1024);
       bytes.toString().should.equal('<ByteBuffer 40 90 00 00 00 00 00 00>');
+      bytes.getDouble(0).should.equal(1024);
 
       bytes.order(ByteBuffer.LITTLE_ENDIAN);
       bytes.putDouble(0, 1);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00 00 00 f0 3f>');
+      bytes.getDouble(0).should.equal(1);
+
       bytes.putDouble(0, 1024);
       bytes.toString().should.equal('<ByteBuffer 00 00 00 00 00 00 90 40>');
+      bytes.getDouble(0).should.equal(1024);
 
       bytes.order(ByteBuffer.BIG_ENDIAN);
       bytes.putDouble(0, 1123123.123123);
       bytes.toString().should.equal('<ByteBuffer 41 31 23 33 1f 84 fd 2a>');
+      bytes.getDouble(0).should.equal(1123123.123123);
+
       bytes.order(ByteBuffer.LITTLE_ENDIAN);
       bytes.putDouble(0, 1123123.123123);
       bytes.toString().should.equal('<ByteBuffer 2a fd 84 1f 33 23 31 41>');
+      bytes.getDouble(0).should.equal(1123123.123123);
+
       bytes.order(ByteBuffer.BIG_ENDIAN);
       bytes.putDouble(1123123.123123);
       bytes.toString().should.equal('<ByteBuffer 2a fd 84 1f 33 23 31 41 41 31 23 33 1f 84 fd 2a>');
+      bytes.getDouble(8).should.equal(1123123.123123);
     });
   });
 
@@ -215,14 +261,23 @@ describe('byte.test.js', function () {
       var bytes = ByteBuffer.allocate(1);
       bytes.put(1);
       bytes.toString().should.equal('<ByteBuffer 01>');
+      bytes.get(0).should.equal(1);
+
       bytes.put(0, 2);
       bytes.toString().should.equal('<ByteBuffer 02>');
+      bytes.get(0).should.equal(2);
+
       bytes.put(1);
       bytes.toString().should.equal('<ByteBuffer 02 01>');
+      bytes.get(1).should.equal(1);
+
       bytes.put(new Buffer([255, 255, 255]));
       bytes.toString().should.equal('<ByteBuffer 02 01 ff ff ff>');
+      bytes.get(2, 3).should.eql(new Buffer([255, 255, 255]));
+
       bytes.put(new Buffer([255, 254, 1]), 1, 2);
       bytes.toString().should.equal('<ByteBuffer 02 01 ff ff ff fe 01>');
+      bytes.get(5, 2).should.eql(new Buffer([254, 1]));
     });
   });
 });
