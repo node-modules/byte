@@ -1,6 +1,6 @@
 {
   "name": "byte",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Input Buffer and Output Buffer, just like Java ByteBuffer",
   "main": "index.js",
   "scripts": {

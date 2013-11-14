@@ -1,4 +1,11 @@
 
+0.1.0 / 2013-11-14 
+==================
+
+  * add getString() and putString()
+  * add ByteBuffer.wrap()
+  * add ByteBuffer get*()
+
 0.0.2 / 2013-11-13 
 ==================
 
