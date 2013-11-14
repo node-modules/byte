@@ -24,6 +24,21 @@ describe('byte.test.js', function () {
   });
 
   describe('putString(), getString()', function () {
+    it('should put empty string', function () {
+      var bytes = new ByteBuffer({size: 1});
+      bytes.putString('');
+      bytes.putString('');
+      bytes.putString(null);
+      bytes.putString(new Buffer(''));
+      bytes.putString(0, '');
+
+      bytes.position(0);
+      bytes.getString().should.equal('');
+      bytes.getString().should.equal('');
+      bytes.getString().should.equal('');
+      bytes.getString().should.equal('');
+    });
+
     it('should put strings', function () {
       var bytes = new ByteBuffer({size: 10});
       bytes.putString('foo, 中文');
