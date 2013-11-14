@@ -326,6 +326,10 @@ describe('byte.test.js', function () {
       bytes.put(new Buffer([255, 254, 1]), 1, 2);
       bytes.toString().should.equal('<ByteBuffer 02 01 ff ff ff fe 01>');
       bytes.get(5, 2).should.eql(new Buffer([254, 1]));
+
+      bytes.position(0);
+      bytes.read(7).should.eql(new Buffer([2, 1, 255, 255, 255, 254, 1]));
+      bytes.position().should.equal(7);
     });
   });
 });
