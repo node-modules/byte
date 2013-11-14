@@ -40,6 +40,15 @@ bb.putShort(65535);
 bb.putShort(-50000);
 
 bb.putDouble(99.99999);
+
+// wrap for read
+var rb = ByteBuffer.wrap(new Buffer(100));
+rb.getInt();
+rb.getLong();
+rb.getChar();
+rb.get();
+rb.getDouble();
+rb.getFloat();
 ```
 
 ## Benchmark

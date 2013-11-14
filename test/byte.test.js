@@ -253,6 +253,9 @@ describe('byte.test.js', function () {
       bytes.putDouble(1123123.123123);
       bytes.toString().should.equal('<ByteBuffer 2a fd 84 1f 33 23 31 41 41 31 23 33 1f 84 fd 2a>');
       bytes.getDouble(8).should.equal(1123123.123123);
+
+      ByteBuffer.wrap(bytes.array()).getDouble(8).should.equal(1123123.123123);
+      ByteBuffer.wrap(bytes.array(), 8, 8).getDouble(0).should.equal(1123123.123123);
     });
   });
 
