@@ -22,6 +22,35 @@ describe('byte.test.js', function () {
     });
   });
 
+  describe('putString(), getString()', function () {
+    it('should put strings', function () {
+      var bytes = new ByteBuffer({size: 10});
+      bytes.putString('foo, 中文');
+      bytes.getString(0).should.equal('foo, 中文');
+      bytes.putString(0, 'foo, 中国');
+      bytes.getString(0).should.equal('foo, 中国');
+      bytes.putString('foo2');
+      bytes.getString(new Buffer('foo, 中国').length + 4).should.equal('foo2');
+
+      bytes.position(0);
+      bytes.getString().should.equal('foo, 中国');
+
+      bytes = new ByteBuffer({size: 10});
+      bytes.putCString('foo, \u0000中文\u0000');
+      bytes.getCString(0).should.equal('foo, \u0000中文\u0000');
+      bytes.putCString(0, 'bar123123, \u0000中文\u0000');
+      bytes.getCString(0).should.equal('bar123123, \u0000中文\u0000');
+
+      bytes.position(0);
+      bytes.putCString('bar123123, \u0000中文\u0000');
+      bytes.putCString('foo2foo, \u0000中文\u0000');
+      bytes.getCString(new Buffer('bar123123, \u0000中文\u0000').length + 4 + 1).should.equal('foo2foo, \u0000中文\u0000');
+
+      bytes.position(0);
+      bytes.getCString().should.equal('bar123123, \u0000中文\u0000');
+    });
+  });
+
   describe('putChar(), getChar()', function () {
     it('should put a char', function () {
       var bytes = ByteBuffer.allocate(2);

@@ -65,6 +65,32 @@ putLong()   x 1,279,507 ops/sec ±2.40% (92 runs sampled)
 [Wed Nov 13 2013 17:01:50 GMT+0800 (CST)] Fastest is "putChar()  "
 ```
 
+## `String` methods
+
+Java String format: `| length (4 bytes int) | string bytes |`
+
+C String format: `| length + 1 (4 bytes int) | string bytes | \0 |`
+
+### `putString()` and `putCString()`
+
+```js
+bb.putString('foo');
+bb.putString(new Buffer('foo'));
+
+bb.putCString('foo');
+bb.putCString(new Buffer('foo'));
+```
+
+### `getString()` and `getCString()`
+
+```js
+bb.getString();
+bb.getString(10);
+
+bb.getCString();
+bb.getCString(10);
+```
+
 ## Authors
 
 ```bash
