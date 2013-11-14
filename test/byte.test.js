@@ -330,6 +330,11 @@ describe('byte.test.js', function () {
       bytes.position(0);
       bytes.read(7).should.eql(new Buffer([2, 1, 255, 255, 255, 254, 1]));
       bytes.position().should.equal(7);
+
+      bytes.position(0);
+      bytes.skip(5);
+      bytes.read(2).should.eql(new Buffer([254, 1]));
+      bytes.position().should.equal(7);
     });
   });
 });
