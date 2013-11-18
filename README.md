@@ -1,6 +1,8 @@
 byte [![Build Status](https://secure.travis-ci.org/fengmk2/byte.png)](http://travis-ci.org/fengmk2/byte) [![Coverage Status](https://coveralls.io/repos/fengmk2/byte/badge.png)](https://coveralls.io/r/fengmk2/byte) [![Build Status](https://drone.io/github.com/fengmk2/byte/status.png)](https://drone.io/github.com/fengmk2/byte/latest)
 =======
 
+[![NPM](https://nodei.co/npm/byte.png?downloads=true&stars=true)](https://nodei.co/npm/byte)
+
 ![logo](https://raw.github.com/fengmk2/byte/master/logo.png)
 
 Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
