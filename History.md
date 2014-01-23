@@ -1,4 +1,12 @@
 
+0.1.3 / 2014-01-23 
+==================
+
+  * update authors
+  * add test for uint, uint16
+  * refactor put and get number of bytes (@dead-horse)
+  * install from cnpm
+
 0.1.2 / 2013-11-14 
 ==================
 
