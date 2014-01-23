@@ -7,7 +7,7 @@ install:
 	@npm install --registry=http://registry.cnpmjs.org --cache=${HOME}/.npm/.cache/cnpm
 
 test: install
-	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
+	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
 		--timeout $(TIMEOUT) \
 		$(MOCHA_OPTS) \
@@ -26,6 +26,13 @@ test-coveralls: test
 	@-$(MAKE) test MOCHA_OPTS='--require blanket' REPORTER=mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
 
 test-all: test test-cov
+
+autod: install
+	@./node_modules/.bin/autod -w -e benchmark.js
+	@$(MAKE) install
+
+contributors: install
+	@./node_modules/.bin/contributors -f plain -o AUTHORS
 
 .PHONY: test
 

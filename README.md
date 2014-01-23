@@ -1,5 +1,7 @@
-byte [![Build Status](https://secure.travis-ci.org/fengmk2/byte.png)](http://travis-ci.org/fengmk2/byte) [![Coverage Status](https://coveralls.io/repos/fengmk2/byte/badge.png)](https://coveralls.io/r/fengmk2/byte) [![Build Status](https://drone.io/github.com/fengmk2/byte/status.png)](https://drone.io/github.com/fengmk2/byte/latest)
+byte
 =======
+
+[![Build Status](https://secure.travis-ci.org/fengmk2/byte.png)](http://travis-ci.org/fengmk2/byte) [![Coverage Status](https://coveralls.io/repos/fengmk2/byte/badge.png)](https://coveralls.io/r/fengmk2/byte) [![Dependency Status](https://gemnasium.com/fengmk2/byte.png)](https://gemnasium.com/fengmk2/byte)
 
 [![NPM](https://nodei.co/npm/byte.png?downloads=true&stars=true)](https://nodei.co/npm/byte)
 
@@ -132,7 +134,7 @@ $ git summary
 
 (The MIT License)
 
-Copyright (c) 2013 fengmk2 &lt;fengmk2@gmail.com&gt;
+Copyright (c) 2013 - 2014 fengmk2 &lt;fengmk2@gmail.com&gt; and other contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

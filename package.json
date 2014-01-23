@@ -19,13 +19,15 @@
     "long": "1.1.2"
   },
   "devDependencies": {
+    "autod": "*",
     "benchmark": "*",
-    "should": "*",
     "blanket": "*",
-    "travis-cov": "*",
+    "contributors": "*",
     "coveralls": "*",
+    "mocha": "*",
     "mocha-lcov-reporter": "*",
-    "mocha": "*"
+    "should": "3.0.1",
+    "travis-cov": "*"
   },
   "homepage": "https://github.com/fengmk2/byte",
   "repository": {
