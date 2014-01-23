@@ -67,6 +67,27 @@ putLong()   x 1,279,507 ops/sec ±2.40% (92 runs sampled)
 [Wed Nov 13 2013 17:01:50 GMT+0800 (CST)] Fastest is "putChar()  "
 ```
 
+## `Number` methods
+
+```
+putShort / putInt16
+putUInt16
+putInt / putInt32
+putUInt / putUInt32
+putInt64
+putFloat
+putDouble
+
+
+getShort / getInt16
+getUInt16
+getInt / getInt32
+getUInt / getUInt32
+getInt64
+getFloat
+getDouble
+```
+
 ## `String` methods
 
 Java String format: `| length (4 bytes int) | string bytes |`

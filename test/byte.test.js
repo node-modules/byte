@@ -171,6 +171,46 @@ describe('byte.test.js', function () {
     });
   });
 
+  describe('putUInt(), getUInt()', function () {
+    it('should put an int', function () {
+      var cases = [
+        // value, big, litter
+        [0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>'],
+        [1, '<ByteBuffer 00 00 00 01>', '<ByteBuffer 01 00 00 00>'],
+        [2, '<ByteBuffer 00 00 00 02>', '<ByteBuffer 02 00 00 00>'],
+        [100, '<ByteBuffer 00 00 00 64>', '<ByteBuffer 64 00 00 00>'],
+        [999, '<ByteBuffer 00 00 03 e7>', '<ByteBuffer e7 03 00 00>'],
+        [99999, '<ByteBuffer 00 01 86 9f>', '<ByteBuffer 9f 86 01 00>'],
+        [1024, '<ByteBuffer 00 00 04 00>', '<ByteBuffer 00 04 00 00>'],
+        // Math.pow(2, 31) - 1
+        [2147483647, '<ByteBuffer 7f ff ff ff>', '<ByteBuffer ff ff ff 7f>'],
+        [2147483646, '<ByteBuffer 7f ff ff fe>', '<ByteBuffer fe ff ff 7f>'],
+        [2147483648, '<ByteBuffer 80 00 00 00>', '<ByteBuffer 00 00 00 80>'],
+        [3249209323, '<ByteBuffer c1 aa ff eb>', '<ByteBuffer eb ff aa c1>'],
+        // Math.pow(2, 32 - 2)
+        [4294967294, '<ByteBuffer ff ff ff fe>', '<ByteBuffer fe ff ff ff>'],
+        // Math.pow(2, 32 - 1)
+        [4294967295, '<ByteBuffer ff ff ff ff>', '<ByteBuffer ff ff ff ff>'],
+      ];
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putUInt(0);
+      bytes.toString().should.equal('<ByteBuffer 00 00 00 00>');
+      bytes.position(0);
+      bytes.getUInt().should.equal(0);
+      cases.forEach(function (item) {
+        bytes.order(ByteBuffer.BIG_ENDIAN);
+        bytes.putUInt(0, item[0]);
+        bytes.toString().should.equal(item[1]);
+        bytes.getUInt(0).should.equal(item[0]);
+
+        bytes.order(ByteBuffer.LITTLE_ENDIAN);
+        bytes.putUInt(0, item[0]);
+        bytes.toString().should.equal(item[2]);
+        bytes.getUInt(0).should.equal(item[0]);
+      });
+    });
+  });
+
   describe('putShort(), getShort()', function () {
     it('should put a short', function () {
       var cases = [
@@ -207,6 +247,45 @@ describe('byte.test.js', function () {
         bytes.putShort(0, item[0]);
         bytes.toString().should.equal(item[2]);
         bytes.getShort(0).should.equal(item[0]);
+      });
+    });
+  });
+
+  describe('putUInt16(), getUInt16()', function () {
+    it('should put a uint16', function () {
+      var cases = [
+        // value, big, litter
+        [0, '<ByteBuffer 00 00>', '<ByteBuffer 00 00>'],
+        [1, '<ByteBuffer 00 01>', '<ByteBuffer 01 00>'],
+        [2, '<ByteBuffer 00 02>', '<ByteBuffer 02 00>'],
+        [100, '<ByteBuffer 00 64>', '<ByteBuffer 64 00>'],
+        [999, '<ByteBuffer 03 e7>', '<ByteBuffer e7 03>'],
+        [9999, '<ByteBuffer 27 0f>', '<ByteBuffer 0f 27>'],
+        [1024, '<ByteBuffer 04 00>', '<ByteBuffer 00 04>'],
+        // Math.pow(2, 15) - 1
+        [32768, '<ByteBuffer 80 00>', '<ByteBuffer 00 80>'],
+        [40000, '<ByteBuffer 9c 40>', '<ByteBuffer 40 9c>'],
+
+        // Math.pow(2, 16) - 1
+        [65534, '<ByteBuffer ff fe>', '<ByteBuffer fe ff>'],
+        [65535, '<ByteBuffer ff ff>', '<ByteBuffer ff ff>'],
+      ];
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putUInt16(0);
+      bytes.toString().should.equal('<ByteBuffer 00 00>');
+      bytes.position(0);
+      bytes.getUInt16().should.equal(0);
+
+      cases.forEach(function (item) {
+        bytes.order(ByteBuffer.BIG_ENDIAN);
+        bytes.putUInt16(0, item[0]);
+        bytes.toString().should.equal(item[1]);
+        bytes.getUInt16(0).should.equal(item[0]);
+
+        bytes.order(ByteBuffer.LITTLE_ENDIAN);
+        bytes.putUInt16(0, item[0]);
+        bytes.toString().should.equal(item[2]);
+        bytes.getUInt16(0).should.equal(item[0]);
       });
     });
   });
