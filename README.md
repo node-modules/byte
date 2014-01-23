@@ -73,7 +73,7 @@ putLong()   x 1,279,507 ops/sec ±2.40% (92 runs sampled)
 putShort / putInt16
 putUInt16
 putInt / putInt32
-putUint / putUInt32
+putUInt / putUInt32
 putInt64
 putFloat
 putDouble
@@ -82,7 +82,7 @@ putDouble
 getShort / getInt16
 getUInt16
 getInt / getInt32
-getUint / getUInt32
+getUInt / getUInt32
 getInt64
 getFloat
 getDouble
