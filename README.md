@@ -96,7 +96,9 @@ Java String format: `| length (4 bytes int) | string bytes |`
 
 C String format: `| length + 1 (4 bytes int) | string bytes | \0 |`
 
-### `putString()` and `putCString()`
+Row String format: `string bytes`
+
+### `putString()` and `putCString()` and `putRawString()`
 
 ```js
 bb.putString('foo');
@@ -104,9 +106,11 @@ bb.putString(new Buffer('foo'));
 
 bb.putCString('foo');
 bb.putCString(new Buffer('foo'));
+
+bb.putRawString('foo');
 ```
 
-### `getString()` and `getCString()`
+### `getString()` and `getCString()` and `getRawString(), readRawString()`
 
 ```js
 bb.getString();
@@ -114,6 +118,9 @@ bb.getString(10);
 
 bb.getCString();
 bb.getCString(10);
+
+bb.getRawString(0, 10);
+bb.readRawString(10);
 ```
 
 ## Authors
