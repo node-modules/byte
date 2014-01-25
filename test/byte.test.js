@@ -416,4 +416,28 @@ describe('byte.test.js', function () {
       bytes.position().should.equal(7);
     });
   });
+
+  describe('putRawString()', function () {
+    it('should put raw string', function () {
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('hello');
+      bytes.putRawString(' world');
+      bytes.toString().should.equal('<ByteBuffer 68 65 6c 6c 6f 20 77 6f 72 6c 64>');
+      bytes.getRawString(0, 11).should.equal('hello world');
+      bytes.position(0);
+      bytes.getRawString().should.equal('h');
+
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('你好');
+      bytes.toString().should.equal('<ByteBuffer e4 bd a0 e5 a5 bd>');
+      bytes.position(0).readRawString(6).should.equal('你好');
+      bytes.putRawString(0, '我们');
+      bytes.toString().should.equal('<ByteBuffer e6 88 91 e4 bb ac>');
+      bytes.getRawString(0, 6).should.equal('我们');
+
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('');
+      bytes.toString().should.equal('<ByteBuffer>');
+    });
+  });
 });
