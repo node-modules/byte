@@ -1,8 +1,12 @@
 /*!
  * byte - test/byte.test.js
  *
- * Copyright(c) 2013 fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
+ * Copyright(c) 2013 - 2014
  * MIT Licensed
+ *
+ * Authors:
+ *   fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
+ *   dead-horse <dead_horse@qq.com> (https://github.com/dead-horse)
  */
 
 "use strict";
@@ -11,8 +15,8 @@
  * Module dependencies.
  */
 
-var ByteBuffer = require('../');
 var should = require('should');
+var ByteBuffer = require('../');
 
 describe('byte.test.js', function () {
   describe('new ByteBuffer()', function () {

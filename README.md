@@ -129,12 +129,13 @@ bb.readRawString(10);
 $ git summary
 
  project  : byte
- repo age : 2 weeks
- active   : 2 days
- commits  : 4
- files    : 13
+ repo age : 3 months
+ active   : 9 days
+ commits  : 25
+ files    : 15
  authors  :
-     4  fengmk2                 100.0%
+    21  fengmk2                 84.0%
+     4  dead_horse              16.0%
 ```
 
 ## License
