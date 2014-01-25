@@ -130,12 +130,12 @@ $ git summary
 
  project  : byte
  repo age : 3 months
- active   : 9 days
- commits  : 25
+ active   : 12 days
+ commits  : 30
  files    : 15
  authors  :
-    21  fengmk2                 84.0%
-     4  dead_horse              16.0%
+    23  fengmk2                 76.7%
+     7  dead_horse              23.3%
 ```
 
 ## License

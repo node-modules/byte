@@ -1,4 +1,10 @@
 
+0.2.0 / 2014-01-25 
+==================
+
+  * add test for rawString (@dead-horse)
+  * add rawString methods (@dead-horse)
+
 0.1.3 / 2014-01-23 
 ==================
 
