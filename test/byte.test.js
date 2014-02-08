@@ -175,6 +175,37 @@ describe('byte.test.js', function () {
     });
   });
 
+  describe('putInt8(), getInt8(), putUInt8(), getUInt8()', function () {
+    it('should put and get 8 bits int', function () {
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putInt8(-128);
+      bytes.toString().should.equal('<ByteBuffer 80>');
+      bytes.putInt8(0, -128);
+      bytes.toString().should.equal('<ByteBuffer 80>');
+      bytes.position(0);
+      bytes.getInt8().should.equal(-128);
+      bytes.putInt8(0, 0);
+      bytes.toString().should.equal('<ByteBuffer 00>');
+      bytes.getInt8(0).should.equal(0);
+
+      bytes.putInt8(0, -128);
+      bytes.toString().should.equal('<ByteBuffer 80>');
+
+      bytes.putInt8(0, 127);
+      bytes.toString().should.equal('<ByteBuffer 7f>');
+
+      bytes.position(0);
+      bytes.putUInt8(255);
+      bytes.toString().should.equal('<ByteBuffer ff>');
+      bytes.position(0);
+      bytes.getUInt8().should.equal(255);
+
+      bytes.putUInt8(0, 0);
+      bytes.toString().should.equal('<ByteBuffer 00>');
+      bytes.getUInt8(0).should.equal(0);
+    });
+  });
+
   describe('putUInt(), getUInt()', function () {
     it('should put an int', function () {
       var cases = [
