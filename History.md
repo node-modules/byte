@@ -1,4 +1,11 @@
 
+0.2.2 / 2014-04-22
+==================
+
+ * use taobao npm
+ * use instanbul and jshint
+ * use n.high and n.low to check Long instance, because long module will be diff in the top project
+
 0.2.1 / 2014-02-08 
 ==================
 
