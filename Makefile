@@ -4,7 +4,7 @@ TIMEOUT = 1000
 MOCHA_OPTS =
 
 install:
-	@npm install --registry=http://r.cnpmjs.org
+	@npm install --registry=http://registry.npm.taobao.org
 
 jshint: install
 	@./node_modules/.bin/jshint .
