@@ -16,6 +16,7 @@
  */
 
 var should = require('should');
+var Long = require('long');
 var ByteBuffer = require('../');
 
 describe('byte.test.js', function () {
@@ -349,6 +350,9 @@ describe('byte.test.js', function () {
         ['-9223372036854775807', '<ByteBuffer 80 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 80>'],
         ['9223372036854775807', '<ByteBuffer 7f ff ff ff ff ff ff ff>', '<ByteBuffer ff ff ff ff ff ff ff 7f>'],
         ['9223372036854775806', '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>'],
+
+        [Long.fromString('9223372036854775806'),
+          '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>'],
       ];
       var bytes = ByteBuffer.allocate(1);
       bytes.putLong(0);
