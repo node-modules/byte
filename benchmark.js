@@ -53,10 +53,10 @@ suite
   putLongBytes.putLong(0, 1);
 })
 .add('putString()', function () {
-  putStringBytes.putString(string);
+  putStringBytes.putString(0, string);
 })
 .add('putRawStr()', function () {
-  putRawStringBytes.putRawString(string);
+  putRawStringBytes.putRawString(0, string);
 })
 .add('get()      ', function () {
   putBytes.get(0, 1);

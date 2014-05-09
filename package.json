@@ -12,8 +12,8 @@
     }
   },
   "dependencies": {
-    "debug": "0.8.1",
-    "long": "1.1.2"
+    "debug": "~0.8.1",
+    "long": "~1.1.2"
   },
   "devDependencies": {
     "autod": "*",
