@@ -479,4 +479,21 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer>');
     });
   });
+
+  describe('_fastSlice()', function () {
+    it('should splice < 2048 ok', function () {
+      var bytes = ByteBuffer.allocate(4096);
+      bytes.putRawString('hello');
+      bytes.putRawString('world');
+      bytes._fastSlice(0, 5).toString().should.equal('hello');
+    });
+
+    it('should splice > 2048 ok', function () {
+      var bytes = ByteBuffer.allocate(4096);
+      for (var i = 0; i < 800; i++) {
+        bytes.putRawString('hello');
+      }
+      bytes._fastSlice(1000, 4000).toString().should.have.length(3000);
+    });
+  })
 });
