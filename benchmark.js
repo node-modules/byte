@@ -22,6 +22,13 @@ var putIntBytes = ByteBuffer.allocate(4);
 var putFloatBytes = ByteBuffer.allocate(4);
 var putDoubleBytes = ByteBuffer.allocate(8);
 var putLongBytes = ByteBuffer.allocate(8);
+var putStringBytes = ByteBuffer.allocate(100);
+var putRawStringBytes = ByteBuffer.allocate(100);
+
+var string = '';
+while(string.length < 100) {
+  string += 'fffff';
+}
 
 suite
 .add('put()      ', function () {
@@ -45,6 +52,12 @@ suite
 .add('putLong()  ', function () {
   putLongBytes.putLong(0, 1);
 })
+.add('putString()', function () {
+  putStringBytes.putString(string);
+})
+.add('putRawStr()', function () {
+  putRawStringBytes.putRawString(string);
+})
 .add('get()      ', function () {
   putBytes.get(0, 1);
 })
@@ -65,6 +78,12 @@ suite
 })
 .add('getLong()  ', function () {
   putLongBytes.getLong(0, 1);
+})
+.add('getString()', function () {
+  putStringBytes.getString(0);
+})
+.add('getRawStr()', function () {
+  putRawStringBytes.getRawString(0, 100);
 })
 // add listeners
 .on('cycle', function (event) {
