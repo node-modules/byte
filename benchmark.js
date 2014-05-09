@@ -45,12 +45,29 @@ suite
 .add('putLong()  ', function () {
   putLongBytes.putLong(0, 1);
 })
-
+.add('get()      ', function () {
+  putBytes.get(0, 1);
+})
+.add('getChar()  ', function () {
+  putCharBytes.getChar(0);
+})
+.add('getShort() ', function () {
+  putShortBytes.getShort(0, 1);
+})
+.add('getInt()   ', function () {
+  putIntBytes.getInt(0, 1);
+})
+.add('getFloat() ', function () {
+  putFloatBytes.getFloat(0, 1);
+})
+.add('getDouble()', function () {
+  putDoubleBytes.getDouble(0, 1);
+})
+.add('getLong()  ', function () {
+  putLongBytes.getLong(0, 1);
+})
 // add listeners
 .on('cycle', function (event) {
   console.log(String(event.target));
-})
-.on('complete', function () {
-  console.log('[%s] Fastest is "%s"', Date(), this.filter('fastest').pluck('name'));
 })
 .run({ async: false });
