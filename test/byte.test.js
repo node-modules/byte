@@ -495,5 +495,5 @@ describe('byte.test.js', function () {
       }
       bytes._fastSlice(1000, 4000).toString().should.have.length(3000);
     });
-  })
+  });
 });
