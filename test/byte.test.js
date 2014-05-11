@@ -48,7 +48,7 @@ describe('byte.test.js', function () {
       var bytes = new ByteBuffer({size: 10});
       bytes.putString('foo, 中文');
       bytes.getString(0).should.equal('foo, 中文');
-      bytes.putString(0, 'foo, 中国');
+      bytes.putString(0, new Buffer('foo, 中国'));
       bytes.getString(0).should.equal('foo, 中国');
       bytes.putString('foo2');
       bytes.getString(new Buffer('foo, 中国').length + 4).should.equal('foo2');
