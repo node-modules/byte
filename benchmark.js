@@ -22,6 +22,7 @@ var putIntBytes = ByteBuffer.allocate(4);
 var putFloatBytes = ByteBuffer.allocate(4);
 var putDoubleBytes = ByteBuffer.allocate(8);
 var putLongBytes = ByteBuffer.allocate(8);
+var putBigLongBytes = ByteBuffer.allocate(8);
 var putStringBytes = ByteBuffer.allocate(100);
 var putRawStringBytes = ByteBuffer.allocate(100);
 
@@ -50,7 +51,13 @@ suite
   putDoubleBytes.putDouble(0, 1);
 })
 .add('putLong()  ', function () {
-  putLongBytes.putLong(0, 1);
+  putLongBytes.putLong(0, 100000);
+})
+.add('putBILong()', function () {
+  putLongBytes.putLong(0, Math.pow(2, 35));
+})
+.add('putBSLong()', function () {
+  putLongBytes.putLong(0, String(Math.pow(2, 35)));
 })
 .add('putString()', function () {
   putStringBytes.putString(0, string);

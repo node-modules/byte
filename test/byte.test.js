@@ -345,6 +345,8 @@ describe('byte.test.js', function () {
         // Math.pow(2, 31) - 1
         [2147483647, '<ByteBuffer 00 00 00 00 7f ff ff ff>', '<ByteBuffer ff ff ff 7f 00 00 00 00>'],
         [2147483646, '<ByteBuffer 00 00 00 00 7f ff ff fe>', '<ByteBuffer fe ff ff 7f 00 00 00 00>'],
+        // Math.pow(2, 31)
+        [2147483648, '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>'],
         // 2, 63 - 1
         ['-9223372036854775808', '<ByteBuffer 80 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 80>'],
         ['-9223372036854775807', '<ByteBuffer 80 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 80>'],
