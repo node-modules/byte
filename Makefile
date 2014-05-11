@@ -28,7 +28,7 @@ test-cov cov: install
 test-all: jshint test test-cov
 
 autod: install
-	@./node_modules/.bin/autod -w -e benchmark.js
+	@./node_modules/.bin/autod -w -e benchmark.js --prefix="~"
 	@$(MAKE) install
 
 contributors: install
