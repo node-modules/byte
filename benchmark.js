@@ -24,6 +24,7 @@ var putDoubleBytes = ByteBuffer.allocate(8);
 var putLongBytes = ByteBuffer.allocate(8);
 var putBigLongBytes = ByteBuffer.allocate(8);
 var putStringBytes = ByteBuffer.allocate(100);
+var putBufStringBytes = ByteBuffer.allocate(100);
 var putRawStringBytes = ByteBuffer.allocate(100);
 
 var string = '';
@@ -32,64 +33,67 @@ while(string.length < 100) {
 }
 
 suite
-.add('put()      ', function () {
+.add('put()           ', function () {
   putBytes.put(0, 1);
 })
-.add('putChar()  ', function () {
+.add('putChar()       ', function () {
   putCharBytes.putChar(0, 'a');
 })
-.add('putShort() ', function () {
+.add('putShort()      ', function () {
   putShortBytes.putShort(0, 1);
 })
-.add('putInt()   ', function () {
+.add('putInt()        ', function () {
   putIntBytes.putInt(0, 1);
 })
-.add('putFloat() ', function () {
+.add('putFloat()      ', function () {
   putFloatBytes.putFloat(0, 1);
 })
-.add('putDouble()', function () {
+.add('putDouble()     ', function () {
   putDoubleBytes.putDouble(0, 1);
 })
-.add('putLong()  ', function () {
+.add('putLong()       ', function () {
   putLongBytes.putLong(0, 100000);
 })
-.add('putBILong()', function () {
+.add('putBigNumLong() ', function () {
   putLongBytes.putLong(0, Math.pow(2, 35));
 })
-.add('putBSLong()', function () {
+.add('putBigStrLong() ', function () {
   putLongBytes.putLong(0, String(Math.pow(2, 35)));
 })
-.add('putString()', function () {
+.add('putString()     ', function () {
   putStringBytes.putString(0, string);
 })
-.add('putRawStr()', function () {
+.add('putBufString()  ', function () {
+  putBufStringBytes.putString(0, new Buffer(100));
+})
+.add('putRawStr()     ', function () {
   putRawStringBytes.putRawString(0, string);
 })
-.add('get()      ', function () {
+.add('get()           ', function () {
   putBytes.get(0, 1);
 })
-.add('getChar()  ', function () {
+.add('getChar()       ', function () {
   putCharBytes.getChar(0);
 })
-.add('getShort() ', function () {
+.add('getShort()      ', function () {
   putShortBytes.getShort(0, 1);
 })
-.add('getInt()   ', function () {
+.add('getInt()        ', function () {
   putIntBytes.getInt(0, 1);
 })
-.add('getFloat() ', function () {
+.add('getFloat()      ', function () {
   putFloatBytes.getFloat(0, 1);
 })
-.add('getDouble()', function () {
+.add('getDouble()     ', function () {
   putDoubleBytes.getDouble(0, 1);
 })
-.add('getLong()  ', function () {
+.add('getLong()       ', function () {
   putLongBytes.getLong(0, 1);
 })
-.add('getString()', function () {
+.add('getString()     ', function () {
   putStringBytes.getString(0);
 })
-.add('getRawStr()', function () {
+.add('getRawStr()     ', function () {
   putRawStringBytes.getRawString(0, 100);
 })
 // add listeners
