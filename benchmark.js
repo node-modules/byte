@@ -54,13 +54,16 @@ suite
 .add('putLong()       ', function () {
   putLongBytes.putLong(0, 100000);
 })
+.add('putSmallSLong() ', function () {
+  putLongBytes.putLong(0, '10000');
+})
 .add('putBigNumLong() ', function () {
   putLongBytes.putLong(0, Math.pow(2, 35));
 })
-.add('putSafeStrLong() ', function () {
+.add('putSafeStrLong()', function () {
   putLongBytes.putLong(0, String(Math.pow(2, 35)));
 })
-.add('putStrLong()     ', function () {
+.add('putStrLong()    ', function () {
   putLongBytes.putLong(0, '9223372036854775808');
 })
 .add('putString()     ', function () {
