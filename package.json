@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "debug": "~0.8.1",
-    "long": "~1.1.2"
+    "long": "~1.1.2",
+    "utility": "~0.1.13"
   },
   "devDependencies": {
     "autod": "*",
@@ -23,7 +24,7 @@
     "istanbul": "*",
     "jshint": "*",
     "mocha": "*",
-    "should": "3.3.1"
+    "should": "~3.3.1"
   },
   "homepage": "https://github.com/node-modules/byte",
   "repository": {

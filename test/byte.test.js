@@ -50,6 +50,8 @@ describe('byte.test.js', function () {
       bytes.getString(0).should.equal('foo, 中文');
       bytes.putString(0, 'foo, 中国');
       bytes.getString(0).should.equal('foo, 中国');
+      bytes.putString(0, new Buffer('foo, 中国'));
+      bytes.getString(0).should.equal('foo, 中国');
       bytes.putString('foo2');
       bytes.getString(new Buffer('foo, 中国').length + 4).should.equal('foo2');
 
@@ -345,6 +347,11 @@ describe('byte.test.js', function () {
         // Math.pow(2, 31) - 1
         [2147483647, '<ByteBuffer 00 00 00 00 7f ff ff ff>', '<ByteBuffer ff ff ff 7f 00 00 00 00>'],
         [2147483646, '<ByteBuffer 00 00 00 00 7f ff ff fe>', '<ByteBuffer fe ff ff 7f 00 00 00 00>'],
+        // Math.pow(2, 31)
+        [2147483648, '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>'],
+        ['99999', '<ByteBuffer 00 00 00 00 00 01 86 9f>', '<ByteBuffer 9f 86 01 00 00 00 00 00>'],
+        ['2147483648', '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>'],
+        ['-2147483647', '<ByteBuffer ff ff ff ff 80 00 00 01>', '<ByteBuffer 01 00 00 80 ff ff ff ff>'],
         // 2, 63 - 1
         ['-9223372036854775808', '<ByteBuffer 80 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 80>'],
         ['-9223372036854775807', '<ByteBuffer 80 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 80>'],
