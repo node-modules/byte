@@ -8,7 +8,7 @@
   },
   "config": {
     "cov": {
-      "threshold": 100
+      "threshold": 90
     }
   },
   "dependencies": {
@@ -19,6 +19,7 @@
   "devDependencies": {
     "autod": "*",
     "benchmark": "*",
+    "beautify-benchmark": "*",
     "contributors": "*",
     "cov": "*",
     "istanbul": "*",

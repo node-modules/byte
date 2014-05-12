@@ -203,9 +203,8 @@ describe('byte.test.js', function () {
       bytes.position(0);
       bytes.getUInt8().should.equal(255);
 
-      bytes.putUInt8(0, 0);
-      bytes.toString().should.equal('<ByteBuffer 00>');
-      bytes.getUInt8(0).should.equal(0);
+      bytes.putUInt8(0, 0).toString().should.equal('<ByteBuffer 00>');
+      bytes.putUInt8(0, 0).getUInt8(0).should.equal(0);
     });
   });
 
@@ -480,6 +479,8 @@ describe('byte.test.js', function () {
       bytes.putRawString(0, '我们');
       bytes.toString().should.equal('<ByteBuffer e6 88 91 e4 bb ac>');
       bytes.getRawString(0, 6).should.equal('我们');
+
+      bytes.readRawString(0, 6).should.equal('我们');
 
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('');
