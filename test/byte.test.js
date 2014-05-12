@@ -203,9 +203,8 @@ describe('byte.test.js', function () {
       bytes.position(0);
       bytes.getUInt8().should.equal(255);
 
-      bytes.putUInt8(0, 0);
-      bytes.toString().should.equal('<ByteBuffer 00>');
-      bytes.getUInt8(0).should.equal(0);
+      bytes.putUInt8(0, 0).toString().should.equal('<ByteBuffer 00>');
+      bytes.putUInt8(0, 0).getUInt8(0).should.equal(0);
     });
   });
 
@@ -481,18 +480,20 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer e6 88 91 e4 bb ac>');
       bytes.getRawString(0, 6).should.equal('我们');
 
+      bytes.readRawString(0, 6).should.equal('我们');
+
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('');
       bytes.toString().should.equal('<ByteBuffer>');
     });
   });
 
-  describe('_fastSlice()', function () {
+  describe('_copy()', function () {
     it('should splice < 2048 ok', function () {
       var bytes = ByteBuffer.allocate(4096);
       bytes.putRawString('hello');
       bytes.putRawString('world');
-      bytes._fastSlice(0, 5).toString().should.equal('hello');
+      bytes._copy(0, 5).toString().should.equal('hello');
     });
 
     it('should splice > 2048 ok', function () {
@@ -500,7 +501,7 @@ describe('byte.test.js', function () {
       for (var i = 0; i < 800; i++) {
         bytes.putRawString('hello');
       }
-      bytes._fastSlice(1000, 4000).toString().should.have.length(3000);
+      bytes._copy(1000, 4000).toString().should.have.length(3000);
     });
   });
 });
