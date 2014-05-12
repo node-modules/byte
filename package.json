@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "debug": "~0.8.1",
-    "long": "~1.1.2"
+    "long": "~1.1.2",
+    "utility": "~0.1.13"
   },
   "devDependencies": {
     "autod": "*",
