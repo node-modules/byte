@@ -70,11 +70,14 @@ putStringBytes.reset();
 
 suite
 
-.add('get(0, 1) => slice', function () {
+.add('get(0, 1) => copy Buffer', function () {
   putBytes.get(0, 1);
 })
-.add('get(0) => byte', function () {
-  putBytes.get(0);
+.add('get(0, 100) => copy Buffer', function () {
+  bytes.get(0, 100);
+})
+.add('get(0, 4096) => copy Buffer', function () {
+  bytes.get(0, 4096);
 })
 .add('get() => byte', function () {
   putBytes.get();
@@ -126,21 +129,22 @@ suite
 })
 .run({ 'async': false });
 
-// node version: v0.11.12, date: Mon May 12 2014 19:00:16 GMT+0800 (CST)
+// node version: v0.11.12, date: Mon May 12 2014 19:14:26 GMT+0800 (CST)
 // Starting...
-// 14 tests completed.
+// 15 tests completed.
 //
-// get(0, 1) => slice    x  2,632,680 ops/sec ±4.31% (87 runs sampled)
-// get(0) => byte        x 41,925,551 ops/sec ±1.25% (95 runs sampled)
-// get() => byte         x 15,803,259 ops/sec ±3.35% (88 runs sampled)
-// getChar(0)            x 39,863,065 ops/sec ±6.93% (78 runs sampled)
-// getShort(0)           x 25,271,617 ops/sec ±3.89% (83 runs sampled)
-// getInt(0)             x 25,692,849 ops/sec ±3.25% (94 runs sampled)
-// getFloat(0)           x 10,771,179 ops/sec ±1.62% (93 runs sampled)
-// getDouble(0)          x 12,165,312 ops/sec ±4.28% (90 runs sampled)
-// getLong(0)            x 11,782,216 ops/sec ±1.20% (94 runs sampled)
-// getString(0)          x  2,603,237 ops/sec ±3.30% (84 runs sampled)
-// getCString(0)         x  1,626,756 ops/sec ±8.48% (74 runs sampled)
-// readRawString(4, 100) x  5,811,111 ops/sec ±1.35% (94 runs sampled)
-// readRawString(100)    x  5,239,786 ops/sec ±1.23% (97 runs sampled)
-// getRawString(0, 100)  x  5,453,482 ops/sec ±1.90% (93 runs sampled)
+// get(0, 1) => copy Buffer    x  2,059,464 ops/sec ±9.18% (69 runs sampled)
+// get(0, 100) => copy Buffer  x  2,124,455 ops/sec ±4.98% (75 runs sampled)
+// get(0, 4096) => copy Buffer x    356,927 ops/sec ±9.43% (56 runs sampled)
+// get() => byte               x 15,477,897 ops/sec ±3.05% (89 runs sampled)
+// getChar(0)                  x 52,541,591 ops/sec ±1.04% (95 runs sampled)
+// getShort(0)                 x 26,297,086 ops/sec ±2.46% (89 runs sampled)
+// getInt(0)                   x 18,772,003 ops/sec ±6.27% (71 runs sampled)
+// getFloat(0)                 x 13,132,298 ops/sec ±1.68% (97 runs sampled)
+// getDouble(0)                x 10,968,594 ops/sec ±1.27% (94 runs sampled)
+// getLong(0)                  x 11,849,374 ops/sec ±2.63% (96 runs sampled)
+// getString(0)                x  2,358,382 ops/sec ±5.78% (76 runs sampled)
+// getCString(0)               x  1,618,356 ops/sec ±8.41% (72 runs sampled)
+// readRawString(4, 100)       x  4,790,991 ops/sec ±9.25% (79 runs sampled)
+// readRawString(100)          x  5,434,663 ops/sec ±1.32% (95 runs sampled)
+// getRawString(0, 100)        x  5,497,325 ops/sec ±1.02% (98 runs sampled)
