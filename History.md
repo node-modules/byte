@@ -1,4 +1,27 @@
 
+0.3.0 / 2014-05-13
+==================
+
+ * add more buffer copy test cases
+ * array() must always copy. close #8
+ * improve getString performance
+ * return this on putNumber*
+ * fix putLong convert
+ * support auto change save string long to number
+ * add test for putString
+ * add test for put buffer string
+ * improve getString, getRawString
+ * improve putString
+ * add putBufString benchmark
+ * improve putRawString
+ * improve performance
+ * use ~ for deps
+ * fix jshint
+ * fix benchmark string
+ * add test for fastSlice
+ * add benchmark for string, use _fastSlice
+ * remove dynamic method name
+
 0.2.3 / 2014-05-07 
 ==================
 
