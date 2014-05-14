@@ -488,6 +488,25 @@ describe('byte.test.js', function () {
     });
   });
 
+  describe('array(), copy()', function () {
+    it('should copy(start)', function () {
+      var bytes = ByteBuffer.allocate(8);
+      bytes.putInt(0);
+      bytes.putInt(1);
+      bytes.copy(4).should.eql(new Buffer([0, 0, 0, 1]));
+    });
+
+    it('should copy(start, end)', function () {
+      var bytes = ByteBuffer.allocate(9);
+      bytes.putInt(0);
+      bytes.putInt(1);
+      bytes.copy(0, 8).should.eql(new Buffer([0, 0, 0, 0, 0, 0, 0, 1]));
+      bytes.copy(0, 9).should.eql(new Buffer([0, 0, 0, 0, 0, 0, 0, 1]));
+      bytes.copy(0, 4).should.eql(new Buffer([0, 0, 0, 0]));
+      bytes.copy(4, 8).should.eql(new Buffer([0, 0, 0, 1]));
+    });
+  });
+
   describe('_copy()', function () {
     it('should splice < 2048 ok', function () {
       var bytes = ByteBuffer.allocate(4096);
