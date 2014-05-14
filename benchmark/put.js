@@ -106,6 +106,10 @@ suite
   bytes.reset();
   bytes.putRawString(string).array();
 })
+.add('bytes.putRawString(str).array(0, 100)', function () {
+  bytes.reset();
+  bytes.putRawString(string).array(0, 100);
+})
 
 .on('cycle', function(event) {
   benchmarks.add(event.target);
@@ -118,9 +122,6 @@ suite
 })
 .run({ 'async': false });
 
-// $ node benchmark/put.js
-//
-//
 //   node version: v0.11.12, date: Mon May 12 2014 18:25:35 GMT+0800 (CST)
 //   Starting...
 //   20 tests completed.
