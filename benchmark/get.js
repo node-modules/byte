@@ -132,7 +132,7 @@ suite
 // node version: v0.11.12, date: Mon May 12 2014 19:14:26 GMT+0800 (CST)
 // Starting...
 // 15 tests completed.
-//
+
 // get(0, 1) => copy Buffer    x  2,059,464 ops/sec ±9.18% (69 runs sampled)
 // get(0, 100) => copy Buffer  x  2,124,455 ops/sec ±4.98% (75 runs sampled)
 // get(0, 4096) => copy Buffer x    356,927 ops/sec ±9.43% (56 runs sampled)
