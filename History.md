@@ -1,4 +1,10 @@
 
+0.3.1 / 2014-05-15
+==================
+
+  * Merge pull request #9 from node-modules/array-as-copy
+  * exports copy bytes, support copy(start, end)
+
 0.3.0 / 2014-05-13
 ==================
 
