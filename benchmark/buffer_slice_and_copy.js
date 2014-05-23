@@ -101,6 +101,9 @@ suite
 })
 .run({ 'async': false });
 
+// see https://github.com/joyent/node/issues/7633, there's a bug in Buffer.slice
+// slice `must` faster using copy
+
 // node version: v0.11.12, date: Mon May 12 2014 19:27:06 GMT+0800 (CST)
 // Starting...
 // 20 tests completed.
@@ -125,3 +128,29 @@ suite
 // buffer.copy(buf, 0, 0, 20480)   x   117,997 ops/sec ±1.72% (62 runs sampled)
 // buffer.copy(buf, 0, 0, 102400)  x    24,906 ops/sec ±2.23% (66 runs sampled)
 // buffer.copy(buf, 0, 0, 1024000) x     1,352 ops/sec ±6.61% (72 runs sampled)
+
+
+// node version: v0.10.28, date: Fri May 23 2014 17:04:26 GMT+0800 (CST)
+// Starting...
+// 20 tests completed.
+
+// buffer.slice(0, 100)            x 4,062,784 ops/sec ±0.87% (98 runs sampled)
+// buffer.slice(0, 512)            x 3,989,500 ops/sec ±1.58% (95 runs sampled)
+// buffer.slice(0, 1024)           x 3,958,796 ops/sec ±1.51% (93 runs sampled)
+// buffer.slice(0, 2048)           x 3,959,244 ops/sec ±1.09% (96 runs sampled)
+// buffer.slice(0, 3072)           x 3,904,209 ops/sec ±0.83% (99 runs sampled)
+// buffer.slice(0, 4096)           x 3,901,458 ops/sec ±1.26% (96 runs sampled)
+// buffer.slice(0, 10240)          x 3,874,936 ops/sec ±1.57% (92 runs sampled)
+// buffer.slice(0, 20480)          x 3,999,628 ops/sec ±0.93% (92 runs sampled)
+// buffer.slice(0, 102400)         x 3,828,573 ops/sec ±1.43% (92 runs sampled)
+// buffer.slice(0, 1024000)        x 3,708,866 ops/sec ±1.59% (94 runs sampled)
+// buffer.copy(buf, 0, 0, 100)     x 2,053,102 ops/sec ±3.10% (82 runs sampled)
+// buffer.copy(buf, 0, 0, 512)     x 1,385,050 ops/sec ±5.66% (70 runs sampled)
+// buffer.copy(buf, 0, 0, 1024)    x 1,029,696 ops/sec ±7.88% (72 runs sampled)
+// buffer.copy(buf, 0, 0, 2048)    x   598,906 ops/sec ±10.44% (62 runs sampled)
+// buffer.copy(buf, 0, 0, 3072)    x   330,360 ops/sec ±10.26% (53 runs sampled)
+// buffer.copy(buf, 0, 0, 4096)    x   338,315 ops/sec ±10.44% (58 runs sampled)
+// buffer.copy(buf, 0, 0, 10240)   x   154,240 ops/sec ±8.80% (56 runs sampled)
+// buffer.copy(buf, 0, 0, 20480)   x    93,172 ops/sec ±7.77% (58 runs sampled)
+// buffer.copy(buf, 0, 0, 102400)  x    25,425 ops/sec ±3.97% (65 runs sampled)
+// buffer.copy(buf, 0, 0, 1024000) x     1,522 ops/sec ±5.47% (76 runs sampled)
