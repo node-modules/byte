@@ -1,15 +1,13 @@
 byte
 =======
 
-[![Build Status](https://secure.travis-ci.org/node-modules/byte.png)](http://travis-ci.org/node-modules/byte)
+[![Build Status](https://secure.travis-ci.org/node-modules/byte.svg)](http://travis-ci.org/node-modules/byte)
 
-[![Coverage Status](https://coveralls.io/repos/node-modules/byte/badge.png)](https://coveralls.io/r/node-modules/byte)
+[![Dependency Status](https://gemnasium.com/node-modules/byte.svg)](https://gemnasium.com/node-modules/byte)
 
-[![Dependency Status](https://gemnasium.com/node-modules/byte.png)](https://gemnasium.com/node-modules/byte)
+[![NPM](https://nodei.co/npm/byte.svg?downloads=true&stars=true)](https://nodei.co/npm/byte)
 
-[![NPM](https://nodei.co/npm/byte.png?downloads=true&stars=true)](https://nodei.co/npm/byte)
-
-![logo](https://raw.github.com/node-modules/byte/master/logo.png)
+![logo](https://raw.github.com/node-modules/byte/master/logo.svg)
 
 Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
 
