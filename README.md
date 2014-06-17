@@ -7,7 +7,7 @@ byte
 
 [![NPM](https://nodei.co/npm/byte.svg?downloads=true&stars=true)](https://nodei.co/npm/byte)
 
-![logo](https://raw.github.com/node-modules/byte/master/logo.svg)
+![logo](https://raw.github.com/node-modules/byte/master/logo.png)
 
 Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
 
