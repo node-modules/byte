@@ -41,15 +41,24 @@ while(string.length < 100) {
 }
 var bufString = new Buffer(100);
 
+var buf = new Buffer(10);
+var src = new Buffer([0x61, 0x62, 0x63]);
+
 suite
-.add('put(0, 1)', function () {
-  putBytes.put(0, 1);
+.add('buf[0] = 97', function () {
+  buf[0] = 97;
 })
-.add('putChar(0, "a")', function () {
+.add('put(0, 97)', function () {
+  putBytes.put(0, 97);
+})
+.add('putChar("0, a")', function () {
   putCharBytes.putChar(0, 'a');
 })
-.add('putChar(0, 61)', function () {
-  putCharBytes.putChar(0, 61);
+.add('copy[0] = 97', function () {
+  src.copy(buf, 0, 0, 1);
+})
+.add('putBuffer(0, <Buffer 61>)', function () {
+  putBytes.putBuffer(0, src, 0, 1);
 })
 .add('putShort(0, 1)', function () {
   putShortBytes.putShort(0, 1);

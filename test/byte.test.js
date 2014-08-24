@@ -81,8 +81,8 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer 61>');
       bytes.putChar('A');
       bytes.toString().should.equal('<ByteBuffer 61 41>');
-      bytes.putChar(255);
-      bytes.toString().should.equal('<ByteBuffer 61 41 ff>');
+      bytes.putChar('b');
+      bytes.toString().should.equal('<ByteBuffer 61 41 62>');
       bytes.putChar(2, 'a');
       bytes.toString().should.equal('<ByteBuffer 61 41 61>');
       bytes.putChar('a');
@@ -442,25 +442,24 @@ describe('byte.test.js', function () {
       bytes.put(1);
       bytes.toString().should.equal('<ByteBuffer 02 01>');
       bytes.get(1).should.equal(1);
-
-      bytes.put(new Buffer([255, 255, 255]));
-      bytes.toString().should.equal('<ByteBuffer 02 01 ff ff ff>');
-      bytes.get(2, 3).should.eql(new Buffer([255, 255, 255]));
-
-      bytes.put(new Buffer([255, 254, 1]), 1, 2);
-      bytes.toString().should.equal('<ByteBuffer 02 01 ff ff ff fe 01>');
-      bytes.get(5, 2).should.eql(new Buffer([254, 1]));
-
-      bytes.position(0);
-      bytes.read(7).should.eql(new Buffer([2, 1, 255, 255, 255, 254, 1]));
-      bytes.position().should.equal(7);
-
-      bytes.position(0);
-      bytes.skip(5);
-      bytes.read(2).should.eql(new Buffer([254, 1]));
-      bytes.position().should.equal(7);
     });
   });
+
+  describe('putBuffer()', function () {
+    it('should put Buffer ok', function () {
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putBuffer(new Buffer([1]));
+      bytes.toString().should.equal('<ByteBuffer 01>');
+      bytes.get(0).should.equal(1);
+
+      bytes.putBuffer(0, new Buffer([1, 2, 3]), 1, 1);
+      bytes.toString().should.equal('<ByteBuffer 02>');
+      bytes.get(0).should.equal(2);
+
+      bytes.putBuffer(new Buffer([3, 4]));
+      bytes.toString().should.equal('<ByteBuffer 02 03 04>');
+    });
+  })
 
   describe('putRawString()', function () {
     it('should put raw string', function () {
