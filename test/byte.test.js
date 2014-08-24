@@ -459,7 +459,7 @@ describe('byte.test.js', function () {
       bytes.putBuffer(new Buffer([3, 4]));
       bytes.toString().should.equal('<ByteBuffer 02 03 04>');
     });
-  })
+  });
 
   describe('putRawString()', function () {
     it('should put raw string', function () {
