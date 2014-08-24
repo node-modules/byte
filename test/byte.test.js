@@ -81,7 +81,7 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer 61>');
       bytes.putChar('A');
       bytes.toString().should.equal('<ByteBuffer 61 41>');
-      bytes.putChar('b');
+      bytes.putChar(0x62);
       bytes.toString().should.equal('<ByteBuffer 61 41 62>');
       bytes.putChar(2, 'a');
       bytes.toString().should.equal('<ByteBuffer 61 41 61>');

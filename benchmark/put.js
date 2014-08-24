@@ -23,6 +23,7 @@ var suite = new Benchmark.Suite();
 
 var putBytes = ByteBuffer.allocate(1);
 var putCharBytes = ByteBuffer.allocate(1);
+var putCharNumBytes = ByteBuffer.allocate(1);
 var putShortBytes = ByteBuffer.allocate(2);
 var putIntBytes = ByteBuffer.allocate(4);
 var putFloatBytes = ByteBuffer.allocate(4);
@@ -51,8 +52,17 @@ suite
 .add('put(0, 97)', function () {
   putBytes.put(0, 97);
 })
-.add('putChar("0, a")', function () {
+.add('putChar(0, "a")', function () {
   putCharBytes.putChar(0, 'a');
+})
+.add('putChar(0, 97)', function () {
+  putCharNumBytes.putChar(0, 97);
+})
+.add('putChar("a")', function () {
+  putCharBytes.putChar('a');
+})
+.add('putChar(97)', function () {
+  putCharNumBytes.putChar(97);
 })
 .add('copy[0] = 97', function () {
   src.copy(buf, 0, 0, 1);

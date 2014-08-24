@@ -63,6 +63,9 @@ optimized(putBufferBytes.putBuffer, [new Buffer([1, 2]), 1, 2], putBufferBytes).
 
 optimized(putCharBytes.putChar, ['a'], putCharBytes);
 optimized(putCharBytes.putChar, [0, 'a'], putCharBytes);
+optimized(putCharBytes.putChar, [97], putCharBytes);
+optimized(putCharBytes.putChar, [0, 97], putCharBytes);
+
 
 // optimized(putCharBytes.getChar, [0], putCharBytes).should.ok;
 
