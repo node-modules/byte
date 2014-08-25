@@ -57,9 +57,7 @@ putBufferBytes.putBuffer._name = 'putBuffer';
 
 optimized(putBytes.put, [0, 1], putBytes).should.ok;
 optimized(putBytes.put, [1], putBytes).should.ok;
-
-optimized(putBufferBytes.putBuffer, [0, new Buffer([1, 2]), 1, 2], putBufferBytes).should.ok;
-optimized(putBufferBytes.putBuffer, [new Buffer([1, 2]), 1, 2], putBufferBytes).should.ok;
+optimized(putBytes.put, [new Buffer([1, 2]), 1, 2], putBytes).should.ok;
 
 optimized(putCharBytes.putChar, ['a'], putCharBytes);
 optimized(putCharBytes.putChar, [0, 'a'], putCharBytes);
