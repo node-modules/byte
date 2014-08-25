@@ -65,72 +65,72 @@ suite
   putCharNumBytes.putChar(0, 97);
 })
 .add('putChar("a")', function () {
-  putCharBytes.position(0);
+  putCharBytes._offset = 0;
   putCharBytes.putChar('a');
 })
 .add('putChar(97)', function () {
-  putCharNumBytes.position(0);
+  putCharNumBytes._offset = 0;
   putCharNumBytes.putChar(97);
 })
-// .add('putShort(0, 1)', function () {
-//   putShortBytes.putShort(0, 1);
-// })
-// .add('putInt(0, 1)', function () {
-//   putIntBytes.putInt(0, 1);
-// })
-// .add('putFloat(0, 1)', function () {
-//   putFloatBytes.putFloat(0, 1);
-// })
-// .add('putDouble(0, 1)', function () {
-//   putDoubleBytes.putDouble(0, 1);
-// })
-// .add('putLong(0, 100000)', function () {
-//   putLongBytes.putLong(0, 100000);
-// })
-// .add('putSmallSLong(0, "10000") ', function () {
-//   putLongBytes.putLong(0, '10000');
-// })
-// .add('putBigNumLong(0, 34359738368) ', function () {
-//   putLongBytes.putLong(0, 34359738368);
-// })
-// .add('putSafeStrLong(0, "34359738368")', function () {
-//   putLongBytes.putLong(0, "34359738368");
-// })
-// .add('putStrLong(0, "9223372036854775808")', function () {
-//   putLongBytes.putLong(0, '9223372036854775808');
-// })
-// .add('ByteBuffer.allocate(100).putString(0, str)', function () {
-//   ByteBuffer.allocate(100).putString(0, string);
-// })
-// .add('putString(0, str)', function () {
-//   putStringBytes.putString(0, string);
-// })
-// .add('bytes.putString(str)', function () {
-//   bytes.reset();
-//   bytes.putString(string);
-// })
-// .add('putString(0, buf)', function () {
-//   putBufStringBytes.putString(0, bufString);
-// })
-// .add('bytes.putString(buf)', function () {
-//   bytes.reset();
-//   bytes.putString(bufString);
-// })
-// .add('putRawString(0, str)', function () {
-//   putRawStringBytes.putRawString(0, string);
-// })
-// .add('bytes.putRawString(str)', function () {
-//   bytes.reset();
-//   bytes.putRawString(string);
-// })
-// .add('bytes.putRawString(str).array()', function () {
-//   bytes.reset();
-//   bytes.putRawString(string).array();
-// })
-// .add('bytes.putRawString(str).array(0, 100)', function () {
-//   bytes.reset();
-//   bytes.putRawString(string).array(0, 100);
-// })
+.add('putShort(0, 1)', function () {
+  putShortBytes.putShort(0, 1);
+})
+.add('putInt(0, 1)', function () {
+  putIntBytes.putInt(0, 1);
+})
+.add('putFloat(0, 1)', function () {
+  putFloatBytes.putFloat(0, 1);
+})
+.add('putDouble(0, 1)', function () {
+  putDoubleBytes.putDouble(0, 1);
+})
+.add('putLong(0, 100000)', function () {
+  putLongBytes.putLong(0, 100000);
+})
+.add('putSmallSLong(0, "10000") ', function () {
+  putLongBytes.putLong(0, '10000');
+})
+.add('putBigNumLong(0, 34359738368) ', function () {
+  putLongBytes.putLong(0, 34359738368);
+})
+.add('putSafeStrLong(0, "34359738368")', function () {
+  putLongBytes.putLong(0, "34359738368");
+})
+.add('putStrLong(0, "9223372036854775808")', function () {
+  putLongBytes.putLong(0, '9223372036854775808');
+})
+.add('ByteBuffer.allocate(100).putString(0, str)', function () {
+  ByteBuffer.allocate(100).putString(0, string);
+})
+.add('putString(0, str)', function () {
+  putStringBytes.putString(0, string);
+})
+.add('bytes.putString(str)', function () {
+  bytes.reset();
+  bytes.putString(string);
+})
+.add('putString(0, buf)', function () {
+  putBufStringBytes.putString(0, bufString);
+})
+.add('bytes.putString(buf)', function () {
+  bytes.reset();
+  bytes.putString(bufString);
+})
+.add('putRawString(0, str)', function () {
+  putRawStringBytes.putRawString(0, string);
+})
+.add('bytes.putRawString(str)', function () {
+  bytes.reset();
+  bytes.putRawString(string);
+})
+.add('bytes.putRawString(str).array()', function () {
+  bytes.reset();
+  bytes.putRawString(string).array();
+})
+.add('bytes.putRawString(str).array(0, 100)', function () {
+  bytes.reset();
+  bytes.putRawString(string).array(0, 100);
+})
 
 .on('cycle', function(event) {
   benchmarks.add(event.target);
@@ -145,14 +145,14 @@ suite
 
   // node version: v0.11.13, date: Mon Aug 25 2014 20:53:00 GMT+0800 (CST)
 
-  // buf[0] = 97                                x 88,742,069 ops/sec ±2.47% (97 runs sampled)
-  // put(0, 97)                                 x 82,112,998 ops/sec ±1.53% (100 runs sampled)
-  // copy[0] = 97                               x 12,676,454 ops/sec ±0.82% (96 runs sampled)
-  // put(<Buffer 61>)                           x 11,351,102 ops/sec ±1.55% (93 runs sampled)
-  // putChar(0, "a")                            x 81,818,815 ops/sec ±1.51% (96 runs sampled)
-  // putChar(0, 97)                             x 76,162,783 ops/sec ±2.49% (96 runs sampled)
-  // putChar("a")                               x 66,728,369 ops/sec ±0.99% (97 runs sampled)
-  // putChar(97)                                x 47,502,811 ops/sec ±1.97% (94 runs sampled)
+  // buf[0] = 97                                x 75,501,118 ops/sec ±2.29% (89 runs sampled)
+  // put(0, 97)                                 x 76,489,133 ops/sec ±1.68% (93 runs sampled)
+  // copy[0] = 97                               x 11,259,189 ops/sec ±2.01% (91 runs sampled)
+  // put(<Buffer 61>)                           x 10,826,427 ops/sec ±1.68% (92 runs sampled)
+  // putChar(0, "a")                            x 77,247,378 ops/sec ±1.74% (94 runs sampled)
+  // putChar(0, 97)                             x 70,058,699 ops/sec ±2.18% (92 runs sampled)
+  // putChar("a")                               x 63,099,885 ops/sec ±0.75% (94 runs sampled)
+  // putChar(97)                                x 62,164,356 ops/sec ±1.38% (95 runs sampled)
   // putShort(0, 1)                             x 19,918,200 ops/sec ±1.03% (95 runs sampled)
   // putInt(0, 1)                               x  7,027,621 ops/sec ±6.70% (91 runs sampled)
   // putFloat(0, 1)                             x 10,104,306 ops/sec ±1.04% (91 runs sampled)
@@ -173,14 +173,26 @@ suite
   // bytes.putRawString(str).array(0, 100)      x    333,073 ops/sec ±1.72% (85 runs sampled)
 
 
-  // node version: v0.10.31, date: Mon Aug 25 2014 22:11:41 GMT+0800 (CST)
+  // node version: v0.10.31, date: Mon Aug 25 2014 22:21:22 GMT+0800 (CST)
   // Starting...
 
-  // buf[0] = 97      x 79,267,829 ops/sec ±2.42% (88 runs sampled)
-  // put(0, 97)       x 38,461,819 ops/sec ±1.13% (87 runs sampled)
-  // copy[0] = 97     x  7,619,200 ops/sec ±0.85% (96 runs sampled)
-  // put(<Buffer 61>) x  6,753,096 ops/sec ±1.06% (92 runs sampled)
-  // putChar(0, "a")  x 44,172,729 ops/sec ±0.60% (97 runs sampled)
-  // putChar(0, 97)   x 52,013,919 ops/sec ±1.86% (89 runs sampled)
-  // putChar("a")     x 29,461,362 ops/sec ±0.56% (100 runs sampled)
-  // putChar(97)      x 33,144,916 ops/sec ±0.89% (93 runs sampled)
+  // buf[0] = 97      x 81,416,619 ops/sec ±2.65% (90 runs sampled)
+  // put(0, 97)       x 39,789,758 ops/sec ±1.48% (92 runs sampled)
+  // copy[0] = 97     x  7,876,033 ops/sec ±2.53% (96 runs sampled)
+  // put(<Buffer 61>) x  6,758,320 ops/sec ±1.45% (91 runs sampled)
+  // putChar(0, "a")  x 42,881,892 ops/sec ±0.60% (92 runs sampled)
+  // putChar(0, 97)   x 41,615,714 ops/sec ±2.85% (75 runs sampled)
+  // putChar("a")     x 33,757,160 ops/sec ±1.78% (92 runs sampled)
+  // putChar(97)      x 36,055,373 ops/sec ±0.85% (97 runs sampled)
+
+  // node version: v0.11.12, date: Mon Aug 25 2014 22:23:09 GMT+0800 (CST)
+  // Starting...
+
+  // buf[0] = 97      x 83,861,096 ops/sec ±1.38% (91 runs sampled)
+  // put(0, 97)       x 46,275,837 ops/sec ±1.50% (94 runs sampled)
+  // copy[0] = 97     x 11,822,231 ops/sec ±2.10% (91 runs sampled)
+  // put(<Buffer 61>) x 10,097,220 ops/sec ±2.56% (87 runs sampled)
+  // putChar(0, "a")  x 47,841,231 ops/sec ±1.71% (91 runs sampled)
+  // putChar(0, 97)   x 52,257,064 ops/sec ±1.18% (93 runs sampled)
+  // putChar("a")     x 37,559,642 ops/sec ±1.52% (94 runs sampled)
+  // putChar(97)      x 40,511,953 ops/sec ±0.87% (96 runs sampled)
