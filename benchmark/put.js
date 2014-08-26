@@ -72,6 +72,13 @@ suite
   putCharNumBytes._offset = 0;
   putCharNumBytes.putChar(97);
 })
+.add('buf.writeUInt16BE(0, 1)', function () {
+  buf.writeUInt16BE(1, 0);
+})
+.add('buf[uint16BE](0, 1)', function () {
+  var uint16BE = 'writeUInt16BE';
+  buf[uint16BE](1, 0);
+})
 .add('putShort(0, 1)', function () {
   putShortBytes.putShort(0, 1);
 })

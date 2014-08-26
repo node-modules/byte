@@ -49,36 +49,47 @@ var putRawStringBytes = ByteBuffer.allocate(208);
 // putBufStringBytes.putString(0, bufString);
 // putRawStringBytes.putRawString(0, string);
 
+putBytes._checkSize._name = '_checkSize';
 putBytes.put._name = 'put';
+putBytes.get._name = 'get';
+putBytes.read._name = 'read';
 putCharBytes.putChar._name = 'putChar';
-putBufferBytes.putBuffer._name = 'putBuffer';
+putCharBytes.getChar._name = 'getChar';
+putShortBytes.putShort._name = 'putShort';
+putIntBytes.putInt._name = 'putInt';
+putFloatBytes.putFloat._name = 'putFloat';
+putDoubleBytes.putDouble._name = 'putDouble';
 
 // optimized(ByteBuffer.allocate, [1024], ByteBuffer).should.ok;
+
+optimized(putBytes._checkSize, [0], putBytes).should.ok;
+optimized(putBytes._checkSize, [100], putBytes).should.ok;
 
 optimized(putBytes.put, [0, 1], putBytes).should.ok;
 optimized(putBytes.put, [1], putBytes).should.ok;
 optimized(putBytes.put, [new Buffer([1, 2]), 1, 2], putBytes).should.ok;
 
-optimized(putCharBytes.putChar, ['a'], putCharBytes);
-optimized(putCharBytes.putChar, [0, 'a'], putCharBytes);
-optimized(putCharBytes.putChar, [97], putCharBytes);
-optimized(putCharBytes.putChar, [0, 97], putCharBytes);
+optimized(putBytes.get, [0, 1], putBytes).should.ok;
+optimized(putBytes.get, [1], putBytes).should.ok;
 
+optimized(putBytes.read, [1], putBytes).should.ok;
 
-// optimized(putCharBytes.getChar, [0], putCharBytes).should.ok;
+optimized(putCharBytes.putChar, ['a'], putCharBytes).should.ok;
+optimized(putCharBytes.putChar, [0, 'a'], putCharBytes).should.ok;
+optimized(putCharBytes.putChar, [97], putCharBytes).should.ok;
+optimized(putCharBytes.putChar, [0, 97], putCharBytes).should.ok;
 
-// optimized(putShortBytes.putShort, [0, 1], putShortBytes).should.ok;
-// optimized(putShortBytes.putShort, [1], putShortBytes).should.ok;
-// optimized(putShortBytes.putShortOpt, [0, 1], putShortBytes).should.ok;
-// optimized(putShortBytes.putShortOpt, [1], putShortBytes).should.ok;
-// optimized(putShortBytes._putShort2, [0, 1], putShortBytes).should.ok;
-// optimized(putShortBytes._putShort1, [1], putShortBytes).should.ok;
+optimized(putCharBytes.getChar, [], putCharBytes).should.ok;
+optimized(putCharBytes.getChar, [0], putCharBytes).should.ok;
 
-// optimized(putIntBytes.putInt, [0, 1], putIntBytes).should.ok;
-// optimized(putIntBytes.putInt, [1], putIntBytes).should.ok;
+optimized(putShortBytes.putShort, [0, 1], putShortBytes).should.ok;
+optimized(putShortBytes.putShort, [1], putShortBytes).should.ok;
 
-// optimized(putFloatBytes.putFloat, [0, 1.1], putFloatBytes).should.ok;
-// optimized(putFloatBytes.putFloat, [1.1], putFloatBytes).should.ok;
+optimized(putIntBytes.putInt, [0, 1], putIntBytes).should.ok;
+optimized(putIntBytes.putInt, [1], putIntBytes).should.ok;
 
-// optimized(putDoubleBytes.putDouble, [0, 1.1], putDoubleBytes).should.ok;
-// optimized(putDoubleBytes.putDouble, [1.1], putDoubleBytes).should.ok;
+optimized(putFloatBytes.putFloat, [0, 1.1], putFloatBytes).should.ok;
+optimized(putFloatBytes.putFloat, [1.1], putFloatBytes).should.ok;
+
+optimized(putDoubleBytes.putDouble, [0, 1.1], putDoubleBytes).should.ok;
+optimized(putDoubleBytes.putDouble, [1.1], putDoubleBytes).should.ok;

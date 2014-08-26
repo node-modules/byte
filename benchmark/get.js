@@ -69,7 +69,19 @@ putStringBytes.reset();
 // console.log(putStringBytes.getString(0) === putCStringBytes.getCString(0));
 
 suite
-
+.add('_offset = 0', function () {
+  putBytes._offset = 0;
+})
+.add('position(0)', function () {
+  putBytes.position(0);
+})
+.add('position()', function () {
+  putBytes.position();
+})
+.add('_bytes.copy(0, 1)', function () {
+  var buf = new Buffer(1);
+  putBytes._bytes.copy(buf, 0, 0, 1);
+})
 .add('get(0, 1) => copy Buffer', function () {
   putBytes.get(0, 1);
 })
@@ -79,14 +91,28 @@ suite
 .add('get(0, 4096) => copy Buffer', function () {
   bytes.get(0, 4096);
 })
+.add('_bytes[i]', function () {
+  putBytes._bytes[0];
+})
 .add('get() => byte', function () {
+  putBytes._offset = 0;
   putBytes.get();
+})
+.add('get(0) => byte', function () {
+  putBytes.get(0);
 })
 .add('getChar(0)', function () {
   putCharBytes.getChar(0);
 })
+.add('_bytes.readUInt16BE', function () {
+  putShortBytes._bytes.readUInt16BE(0);
+})
 .add('getShort(0)', function () {
   putShortBytes.getShort(0);
+})
+.add('getShort()', function () {
+  putShortBytes._offset = 0;
+  putShortBytes.getShort();
 })
 .add('getInt(0)', function () {
   putIntBytes.getInt(0);
