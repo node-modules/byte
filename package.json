@@ -18,13 +18,14 @@
   },
   "devDependencies": {
     "autod": "*",
-    "benchmark": "*",
     "beautify-benchmark": "*",
+    "benchmark": "*",
     "contributors": "*",
     "cov": "*",
     "istanbul": "*",
     "jshint": "*",
     "mocha": "*",
+    "optimized": "~1.2.0",
     "should": "~3.3.1"
   },
   "homepage": "https://github.com/node-modules/byte",
@@ -38,7 +39,11 @@
     "email": "fengmk2@gmail.com"
   },
   "keywords": [
-    "ByteBuffer", "byte", "bytes", "io", "buffer"
+    "ByteBuffer",
+    "byte",
+    "bytes",
+    "io",
+    "buffer"
   ],
   "engines": {
     "node": ">= 0.8.0"

@@ -27,6 +27,9 @@ test-cov cov: install
 
 test-all: jshint test test-cov
 
+optimized:
+	@node --allow-natives-syntax --trace_opt --trace_deopt test/optimized.js
+
 autod: install
 	@./node_modules/.bin/autod -w -e benchmark.js --prefix="~"
 	@$(MAKE) install
