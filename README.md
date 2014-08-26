@@ -26,7 +26,8 @@ byte
 
 ![logo](https://raw.github.com/node-modules/byte/master/logo.png)
 
-Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
+Input Buffer and Output Buffer,
+just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
 
 ## Install
 
@@ -36,7 +37,8 @@ $ npm install byte --save
 
 ## Usage
 
-All methods just like Java ByteBuffer, you find them out [here](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html#method_summary).
+All methods just like Java ByteBuffer,
+you find them out [here](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html#method_summary).
 
 ```js
 var ByteBuffer = require('byte');

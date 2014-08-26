@@ -1,4 +1,16 @@
 
+1.0.0 / 2014-08-27
+==================
+
+ * add optimized for numbers
+ * refact put
+ * refactor putChar
+ * optimize put, putChar
+ * add 0.11.13 benchmark result
+ * add test ubffer slice and copy in node 0.10.28
+ * add write int and fill byte benchmark
+ * add more benchmarks
+
 0.3.1 / 2014-05-15
 ==================
 
