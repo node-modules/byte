@@ -129,12 +129,12 @@ describe('byte.test.js', function () {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[1]);
-        String(bytes.getFloat(0)).should.include(item[0]);
+        String(bytes.getFloat(0)).should.containEql(item[0]);
 
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[2]);
-        String(bytes.getFloat(0)).should.include(item[0]);
+        String(bytes.getFloat(0)).should.containEql(item[0]);
       });
     });
   });

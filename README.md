@@ -1,11 +1,28 @@
 byte
 =======
 
-[![Build Status](https://secure.travis-ci.org/node-modules/byte.svg)](http://travis-ci.org/node-modules/byte)
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Gittip][gittip-image]][gittip-url]
+[![David deps][david-image]][david-url]
+[![node version][node-image]][node-url]
+[![npm download][download-image]][download-url]
 
-[![Dependency Status](https://gemnasium.com/node-modules/byte.svg)](https://gemnasium.com/node-modules/byte)
-
-[![NPM](https://nodei.co/npm/byte.svg?downloads=true&stars=true)](https://nodei.co/npm/byte)
+[npm-image]: https://img.shields.io/npm/v/byte.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/byte
+[travis-image]: https://img.shields.io/travis/node-modules/byte.svg?style=flat-square
+[travis-url]: https://travis-ci.org/node-modules/byte
+[coveralls-image]: https://img.shields.io/coveralls/node-modules/byte.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/node-modules/byte?branch=master
+[gittip-image]: https://img.shields.io/gittip/fengmk2.svg?style=flat-square
+[gittip-url]: https://www.gittip.com/fengmk2/
+[david-image]: https://img.shields.io/david/node-modules/byte.svg?style=flat-square
+[david-url]: https://david-dm.org/node-modules/byte
+[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
+[node-url]: http://nodejs.org/download/
+[download-image]: https://img.shields.io/npm/dm/byte.svg?style=flat-square
+[download-url]: https://npmjs.org/package/byte
 
 ![logo](https://raw.github.com/node-modules/byte/master/logo.png)
 
@@ -14,7 +31,7 @@ Input Buffer and Output Buffer, just like Java [`ByteBuffer`](http://docs.oracle
 ## Install
 
 ```bash
-$ npm install byte
+$ npm install byte --save
 ```
 
 ## Usage
@@ -162,21 +179,6 @@ bb.getCString(10);
 
 bb.getRawString(0, 10);
 bb.readRawString(10);
-```
-
-## Authors
-
-```bash
-$ git summary
-
- project  : byte
- repo age : 3 months
- active   : 12 days
- commits  : 30
- files    : 15
- authors  :
-    23  fengmk2                 76.7%
-     7  dead_horse              23.3%
 ```
 
 ## License
