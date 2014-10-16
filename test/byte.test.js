@@ -523,4 +523,67 @@ describe('byte.test.js', function () {
       bytes._copy(1000, 4000).toString().should.have.length(3000);
     });
   });
+
+  describe('capacity()', function () {
+    it('should capacity()', function () {
+      var bytes = ByteBuffer.allocate(4);
+      bytes.putInt(0);
+      bytes.capacity().should.eql(4);
+      bytes.putInt(1);
+      bytes.capacity().should.eql(16);
+      bytes.flip();
+      bytes.capacity().should.eql(16);
+    });
+  });
+
+  describe('remaining(), hasRemaining()', function () {
+    it('should remaining(), hasRemaining()', function () {
+      var bytes = ByteBuffer.allocate(8);
+      bytes.remaining().should.eql(8);
+      bytes.hasRemaining().should.true;
+      bytes.put(1);
+      bytes.remaining().should.eql(7);
+      bytes.hasRemaining().should.true;
+      bytes.putShort(2);
+      bytes.remaining().should.eql(5);
+      bytes.hasRemaining().should.true;
+      bytes.put(1);
+      bytes.putInt(1);
+      bytes.remaining().should.eql(0);
+      bytes.hasRemaining().should.false;
+    });
+  });
+
+  describe('flip(), limit()', function () {
+    it('should flip(), limit()', function () {
+      var bytes = ByteBuffer.allocate(8);
+      bytes.limit().should.eql(8);
+      bytes.putInt(1);
+      bytes.limit().should.eql(8);
+      bytes.flip();
+      bytes.limit().should.eql(4);
+    });
+
+    it('should limit(newLimit)', function () {
+      var bytes = ByteBuffer.allocate(8);
+      bytes.limit().should.eql(8);
+      bytes.limit(4).limit().should.eql(4);
+    });
+  });
+
+  describe('get(dst, offset, length)', function () {
+   it('should get(dst, offset, length)', function () {
+     var bytes = ByteBuffer.allocate(4);
+     bytes.putInt(1);
+     bytes.flip(); // switch to read mode
+     var buf = new Buffer(4);
+     bytes.get(buf);
+     buf.should.eql(new Buffer([0, 0, 0, 1]));
+
+     var buf2 = new Buffer(1);
+     (function() {
+       bytes.get(buf2);
+     }).should.throw('BufferOverflowException');
+   });
+  });
 });
