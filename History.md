@@ -1,11 +1,4 @@
 
-1.0.1 / 2014-10-16
-==================
-
- * add limit, capacity, remaining, hasRemaining
- * refact get
- * add flip(), support read/write mode switching
-
 1.0.0 / 2014-08-27
 ==================
 
