@@ -585,5 +585,17 @@ describe('byte.test.js', function () {
        bytes.get(buf2);
      }).should.throw('BufferOverflowException');
    });
+
+   it('should get(dst, offset, length) again', function () {
+     var bytes = ByteBuffer.allocate(8);
+     bytes.putInt(1);
+     bytes.putInt(5);
+     bytes.flip(); // switch to read mode
+     var buf = new Buffer(4);
+     bytes.get(buf);
+     buf.should.eql(new Buffer([0, 0, 0, 1]));
+     bytes.get(buf);
+     buf.should.eql(new Buffer([0, 0, 0, 5]));
+   });
   });
 });
