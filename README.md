@@ -24,8 +24,6 @@ byte
 [download-image]: https://img.shields.io/npm/dm/byte.svg?style=flat-square
 [download-url]: https://npmjs.org/package/byte
 
-![logo](https://raw.github.com/node-modules/byte/master/logo.png)
-
 Input Buffer and Output Buffer,
 just like Java [`ByteBuffer`](http://docs.oracle.com/javase/6/docs/api/java/nio/ByteBuffer.html).
 
