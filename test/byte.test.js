@@ -487,7 +487,7 @@ describe('byte.test.js', function () {
       bytes.toString().should.equal('<ByteBuffer>');
     });
 
-    it.only('should put emoji', function () {
+    it('should put emoji', function () {
       // utf8
       var bytes = ByteBuffer.allocate(1);
       var str = new Buffer('aGVsbG/ppoPlsLI=', 'base64').toString('utf8');
