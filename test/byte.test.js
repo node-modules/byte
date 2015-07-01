@@ -486,6 +486,14 @@ describe('byte.test.js', function () {
       bytes.putRawString('');
       bytes.toString().should.equal('<ByteBuffer>');
     });
+
+    it('should put emoji', function () {
+      var bytes = ByteBuffer.allocate(1);
+      var str = new Buffer('aGVsbG/ppoPlsLI=', 'base64').toString('utf8');
+      bytes.putRawString(str);
+      bytes.toString().should.eql('<ByteBuffer 68 65 6c 6c 6f e9 a6 83 e5 b0 b2>');
+      bytes.getRawString(0, 11).should.eql(str);
+    });
   });
 
   describe('array(), copy()', function () {
