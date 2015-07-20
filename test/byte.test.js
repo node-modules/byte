@@ -58,11 +58,18 @@ describe('byte.test.js', function () {
       bytes.position(0);
       bytes.getString().should.equal('foo, 中国');
 
+      bytes = new ByteBuffer({size: 1});
+      bytes.putCString(0, '');
+      bytes._size.should.equal(4 * 2);
+
       bytes = new ByteBuffer({size: 10});
       bytes.putCString('foo, \u0000中文\u0000');
       bytes.getCString(0).should.equal('foo, \u0000中文\u0000');
       bytes.putCString(0, 'bar123123, \u0000中文\u0000');
       bytes.getCString(0).should.equal('bar123123, \u0000中文\u0000');
+      var lbadstr = 'bar123123123123123123123123123123123123, \u0000中文\u0000';
+      bytes.putCString(0, lbadstr);
+      bytes.getCString(0).should.equal(lbadstr);
 
       bytes.position(0);
       bytes.putCString('bar123123, \u0000中文\u0000');
