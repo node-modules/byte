@@ -553,9 +553,9 @@ describe('byte.test.js', function () {
       bytes.putInt(0);
       bytes.capacity().should.eql(4);
       bytes.putInt(1);
-      bytes.capacity().should.eql(16);
+      bytes.capacity().should.eql(8);
       bytes.flip();
-      bytes.capacity().should.eql(16);
+      bytes.capacity().should.eql(8);
     });
   });
 
