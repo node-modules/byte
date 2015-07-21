@@ -515,6 +515,13 @@ describe('byte.test.js', function () {
       bytes.putRawString(str);
       bytes.toString().should.eql('<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       bytes.getRawString(0, 12).should.eql(str);
+      
+      // Construction of a special test case which triggers the bug
+      // of allocating insufficient space via _checkSize
+      var bytes = ByteBuffer.allocate(4);
+      var str = new Buffer([-19, -96, -67, -19, -72, -128]).toString();
+      bytes.putRawString(str);
+      bytes.toString().should.eql('<ByteBuffer ed a0 bd ed b8 80>');
     });
   });
 
