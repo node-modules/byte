@@ -1,4 +1,10 @@
 
+1.1.4 / 2015-07-21
+==================
+
+ * Fix the bug of allocating insufficient space (@pmq20)
+ * Invoke _checkSize when index is provided
+
 1.1.3 / 2015-07-01
 ==================
 
