@@ -497,21 +497,20 @@ describe('byte.test.js', function () {
     it('should put emoji', function () {
       // utf8
       var bytes = ByteBuffer.allocate(1);
-      var str = new Buffer('aGVsbG/ppoPlsLI=', 'base64').toString();
+      var str = 'hello\u9983\u5c32';
       bytes.putRawString(str);
       bytes.toString().should.eql('<ByteBuffer 68 65 6c 6c 6f e9 a6 83 e5 b0 b2>');
       bytes.getRawString(0, 11).should.eql(str);
       // gbk
       var bytes = ByteBuffer.allocate(1);
-      var str = new Buffer('aGVsbG/wn4y8', 'base64').toString();
+      var str = 'hello\ud83c\udf3c';
       bytes.putRawString(str);
       bytes.toString().should.eql('<ByteBuffer 68 65 6c 6c 6f ed a0 bc ed bc bc>');
       bytes.getRawString(0, 11).should.eql(str);
 
-      // 😀Www那
       var bytes = ByteBuffer.allocate(1);
       // java encode bytes: [-19, -96, -67, -19, -72, -128, 87, 119, 119, -23, -126, -93]
-      var str = new Buffer([-19, -96, -67, -19, -72, -128, 87, 119, 119, -23, -126, -93]).toString();
+      var str = '\ud83d\ude00Www那';
       bytes.putRawString(str);
       bytes.toString().should.eql('<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       bytes.getRawString(0, 12).should.eql(str);
@@ -519,7 +518,7 @@ describe('byte.test.js', function () {
       // Construction of a special test case which triggers the bug
       // of allocating insufficient space via _checkSize
       var bytes = ByteBuffer.allocate(4);
-      var str = new Buffer([-19, -96, -67, -19, -72, -128]).toString();
+      var str = '\ud83d\ude00';
       bytes.putRawString(str);
       bytes.toString().should.eql('<ByteBuffer ed a0 bd ed b8 80>');
     });
