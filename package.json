@@ -2,10 +2,9 @@
   "name": "byte",
   "version": "1.1.4",
   "description": "Input Buffer and Output Buffer, just like Java ByteBuffer",
-  "main": "index.js",
+  "main": "lib/byte.js",
   "files": [
-    "lib/",
-    "index.js"
+    "lib/"
   ],
   "scripts": {
     "test": "mocha -R spec -t 5000 test/*.test.js",
