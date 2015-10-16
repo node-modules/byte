@@ -7,6 +7,7 @@
  * Authors:
  *   fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
  *   dead-horse <dead_horse@qq.com> (https://github.com/dead-horse)
+ *   P.S.V.R <pmq2001@gmail.com> (https://github.com/pmq20)
  */
 
 "use strict";
