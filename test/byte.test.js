@@ -18,6 +18,7 @@
 var should = require('should');
 var Long = require('long');
 var ByteBuffer = require('../');
+var debug = require('debug')('byte');
 
 describe('byte.test.js', function () {
   describe('new ByteBuffer()', function () {
@@ -134,16 +135,23 @@ describe('byte.test.js', function () {
       bytes.getFloat().should.equal(0);
       cases.forEach(function (item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
+        debug('putFloat', item[0]);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[1]);
-        String(bytes.getFloat(0)).should.containEql(item[0]);
+        bytes.getFloat(0).should.containEql(item[0]);
 
         bytes.order(ByteBuffer.LITTLE_ENDIAN);
         bytes.putFloat(0, item[0]);
         bytes.toString().should.equal(item[2]);
-        String(bytes.getFloat(0)).should.containEql(item[0]);
+        bytes.getFloat(0).should.containEql(item[0]);
       });
+
+      bytes.position(0);
+      bytes.putFloat(2.3);
+      bytes.getFloat(0).should.eql(2.3);
+
     });
+  
   });
 
   describe('putInt(), getInt()', function () {
