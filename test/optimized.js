@@ -14,8 +14,8 @@
  * Module dependencies.
  */
 
+var assert = require('assert');
 var optimized = require('optimized');
-var should = require('should');
 var ByteBuffer = require('..');
 
 var putBytes = ByteBuffer.allocate(2);
@@ -60,36 +60,34 @@ putIntBytes.putInt._name = 'putInt';
 putFloatBytes.putFloat._name = 'putFloat';
 putDoubleBytes.putDouble._name = 'putDouble';
 
-// optimized(ByteBuffer.allocate, [1024], ByteBuffer).should.ok;
+assert(optimized(putBytes._checkSize, [0], putBytes));
+assert(optimized(putBytes._checkSize, [100], putBytes));
 
-optimized(putBytes._checkSize, [0], putBytes).should.ok;
-optimized(putBytes._checkSize, [100], putBytes).should.ok;
+assert(optimized(putBytes.put, [0, 1], putBytes));
+assert(optimized(putBytes.put, [1], putBytes));
+assert(optimized(putBytes.put, [new Buffer([1, 2]), 1, 2], putBytes));
 
-optimized(putBytes.put, [0, 1], putBytes).should.ok;
-optimized(putBytes.put, [1], putBytes).should.ok;
-optimized(putBytes.put, [new Buffer([1, 2]), 1, 2], putBytes).should.ok;
+assert(optimized(putBytes.get, [0, 1], putBytes));
+assert(optimized(putBytes.get, [1], putBytes));
 
-optimized(putBytes.get, [0, 1], putBytes).should.ok;
-optimized(putBytes.get, [1], putBytes).should.ok;
+assert(optimized(putBytes.read, [1], putBytes));
 
-optimized(putBytes.read, [1], putBytes).should.ok;
+assert(optimized(putCharBytes.putChar, ['a'], putCharBytes));
+assert(optimized(putCharBytes.putChar, [0, 'a'], putCharBytes));
+assert(optimized(putCharBytes.putChar, [97], putCharBytes));
+assert(optimized(putCharBytes.putChar, [0, 97], putCharBytes));
 
-optimized(putCharBytes.putChar, ['a'], putCharBytes).should.ok;
-optimized(putCharBytes.putChar, [0, 'a'], putCharBytes).should.ok;
-optimized(putCharBytes.putChar, [97], putCharBytes).should.ok;
-optimized(putCharBytes.putChar, [0, 97], putCharBytes).should.ok;
+assert(optimized(putCharBytes.getChar, [], putCharBytes));
+assert(optimized(putCharBytes.getChar, [0], putCharBytes));
 
-optimized(putCharBytes.getChar, [], putCharBytes).should.ok;
-optimized(putCharBytes.getChar, [0], putCharBytes).should.ok;
+assert(optimized(putShortBytes.putShort, [0, 1], putShortBytes));
+assert(optimized(putShortBytes.putShort, [1], putShortBytes));
 
-optimized(putShortBytes.putShort, [0, 1], putShortBytes).should.ok;
-optimized(putShortBytes.putShort, [1], putShortBytes).should.ok;
+assert(optimized(putIntBytes.putInt, [0, 1], putIntBytes));
+assert(optimized(putIntBytes.putInt, [1], putIntBytes));
 
-optimized(putIntBytes.putInt, [0, 1], putIntBytes).should.ok;
-optimized(putIntBytes.putInt, [1], putIntBytes).should.ok;
+assert(optimized(putFloatBytes.putFloat, [0, 1.1], putFloatBytes));
+assert(optimized(putFloatBytes.putFloat, [1.1], putFloatBytes));
 
-optimized(putFloatBytes.putFloat, [0, 1.1], putFloatBytes).should.ok;
-optimized(putFloatBytes.putFloat, [1.1], putFloatBytes).should.ok;
-
-optimized(putDoubleBytes.putDouble, [0, 1.1], putDoubleBytes).should.ok;
-optimized(putDoubleBytes.putDouble, [1.1], putDoubleBytes).should.ok;
+assert(optimized(putDoubleBytes.putDouble, [0, 1.1], putDoubleBytes));
+assert(optimized(putDoubleBytes.putDouble, [1.1], putDoubleBytes));
