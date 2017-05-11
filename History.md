@@ -1,4 +1,9 @@
 
+1.1.6 / 2017-05-11
+==================
+
+  * refactor: enhance ByteBuffer.get performance
+
 1.1.5 / 2015-09-28
 ==================
 
