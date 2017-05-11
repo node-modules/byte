@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "test": "mocha -R spec -t 5000 test/*.test.js",
-    "test-cov": "node node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -t 5000 test/*.test.js",
-    "ci": "npm run lint && npm run test-cov && npm run benchmark:get_byte",
+    "test-cov": "istanbul cover _mocha -- -t 5000 test/*.test.js",
+    "ci": "npm run test-cov && npm run benchmark:get_byte",
     "benchmark:get_byte": "node benchmark/get_byte.js",
     "lint": "jshint .",
     "autod": "autod -w --prefix '^' -e benchmark",
