@@ -73,13 +73,18 @@ var suite = new Benchmark.Suite();
 
 var buf = new Buffer([2, 1, 255, 255, 255, 254, 1]);
 
+console.log(new OldOldByteBuffer({ array: buf }).get());
+console.log(new CopyOldByteBuffer({ array: buf }).get());
+console.log(new OldByteBuffer({ array: buf }).get());
+console.log(new ByteBuffer({ array: buf }).get());
+
 suite
   .add('prototype old get()', function() {
     var bytes = new OldOldByteBuffer({ array: buf });
     bytes.get();
   })
   .add('copy old get()', function() {
-    var bytes = new OldOldByteBuffer({ array: buf });
+    var bytes = new CopyOldByteBuffer({ array: buf });
     bytes.get();
   })
   .add('class old get()', function() {
