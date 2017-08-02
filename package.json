@@ -26,6 +26,7 @@
     "beautify-benchmark": "0",
     "benchmark": "1",
     "contributors": "*",
+    "fastbench": "^1.0.1",
     "istanbul": "*",
     "jshint": "*",
     "mocha": "*",
