@@ -34,8 +34,7 @@
   "homepage": "https://github.com/node-modules/byte",
   "repository": {
     "type": "git",
-    "url": "git://github.com/node-modules/byte.git",
-    "web": "https://github.com/node-modules/byte"
+    "url": "git://github.com/node-modules/byte.git"
   },
   "bugs": {
     "url": "https://github.com/node-modules/byte/issues",
