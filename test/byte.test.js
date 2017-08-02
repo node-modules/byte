@@ -1,15 +1,4 @@
-/*!
- * byte - test/byte.test.js
- *
- * Copyright(c) 2013 - 2014
- * MIT Licensed
- *
- * Authors:
- *   fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
- *   dead-horse <dead_horse@qq.com> (https://github.com/dead-horse)
- */
-
-"use strict";
+'use strict';
 
 var Long = require('long');
 var assert = require('assert');
@@ -514,7 +503,7 @@ describe('byte.test.js', function () {
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       assert.deepEqual(bytes.getRawString(0, 12), str);
-      
+
       // Construction of a special test case which triggers the bug
       // of allocating insufficient space via _checkSize
       var bytes = ByteBuffer.allocate(4);
