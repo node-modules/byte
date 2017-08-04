@@ -11,6 +11,11 @@ describe('byte.test.js', function () {
       assert(bytes.array().length === 0);
       assert(bytes.position() === 0);
     });
+
+    it('should correct set size when passed array', function () {
+      var bytes = new ByteBuffer({ array: new Buffer(10) });
+      bytes.limit().should.equal(10);
+    });
   });
 
   describe('putString(), getString()', function () {
