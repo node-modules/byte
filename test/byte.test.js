@@ -458,7 +458,7 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putRawString()', function () {
+  describe('putRawString(), putUTF8RawString()', function () {
     it('should put raw string', function () {
       var bytes = ByteBuffer.allocate(1);
       bytes.putRawString('hello');
@@ -469,14 +469,24 @@ describe('byte.test.js', function () {
       assert(bytes.getRawString() === 'h');
 
       bytes = ByteBuffer.allocate(1);
+      bytes.putUTF8RawString('hello');
+      bytes.putUTF8RawString(' world');
+      assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f 20 77 6f 72 6c 64>');
+
+      bytes = ByteBuffer.allocate(1);
       bytes.putRawString('你好');
       assert(bytes.toString() === '<ByteBuffer e4 bd a0 e5 a5 bd>');
       assert(bytes.position(0).readRawString(6) === '你好');
       bytes.putRawString(0, '我们');
       assert(bytes.toString() === '<ByteBuffer e6 88 91 e4 bb ac>');
       assert(bytes.getRawString(0, 6) === '我们');
-
       assert(bytes.readRawString(0, 6) === '我们');
+
+      bytes = ByteBuffer.allocate(1);
+      bytes.putUTF8RawString('你好');
+      assert(bytes.toString() === '<ByteBuffer e4 bd a0 e5 a5 bd>');
+      bytes.putUTF8RawString(0, '我们');
+      assert(bytes.toString() === '<ByteBuffer e6 88 91 e4 bb ac>');
 
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('');
@@ -486,8 +496,8 @@ describe('byte.test.js', function () {
     it('should 000000000xxxxxxx (0x0000 ~ 0x007f) => 0xxxxxxx (0x00 ~ 0x7f)', function() {
       // UTF-8
       var bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x0000));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 00>');
+      bytes.putUTF8RawString(String.fromCharCode(0x0000));
+      assert(bytes.toString() === '<ByteBuffer 00>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x0000));
@@ -495,8 +505,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x0001));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 01>');
+      bytes.putUTF8RawString(String.fromCharCode(0x0001));
+      assert(bytes.toString() === '<ByteBuffer 01>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x0001));
@@ -504,8 +514,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString('E'); // 0x45
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 45>');
+      bytes.putUTF8RawString('E'); // 0x45
+      assert(bytes.toString() === '<ByteBuffer 45>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('E');
@@ -513,8 +523,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x7F));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 7f>');
+      bytes.putUTF8RawString(String.fromCharCode(0x7F));
+      assert(bytes.toString() === '<ByteBuffer 7f>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x7F));
@@ -525,8 +535,8 @@ describe('byte.test.js', function () {
       // UTF-8
       var bytes = ByteBuffer.allocate(1);
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x80));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c2 80>');
+      bytes.putUTF8RawString(String.fromCharCode(0x80));
+      assert(bytes.toString() === '<ByteBuffer c2 80>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x80));
@@ -534,8 +544,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString('ȅ'); // 0x0205: 517
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c8 85>');
+      bytes.putUTF8RawString('ȅ'); // 0x0205: 517
+      assert(bytes.toString() === '<ByteBuffer c8 85>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('ȅ');
@@ -543,8 +553,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x81));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c2 81>');
+      bytes.putUTF8RawString(String.fromCharCode(0x81));
+      assert(bytes.toString() === '<ByteBuffer c2 81>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x81));
@@ -552,8 +562,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x7FE));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 df be>');
+      bytes.putUTF8RawString(String.fromCharCode(0x7FE));
+      assert(bytes.toString() === '<ByteBuffer df be>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x7FE));
@@ -561,8 +571,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x7FF));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 df bf>');
+      bytes.putUTF8RawString(String.fromCharCode(0x7FF));
+      assert(bytes.toString() === '<ByteBuffer df bf>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x7FF));
@@ -573,8 +583,8 @@ describe('byte.test.js', function () {
       // UTF-8
       var bytes = ByteBuffer.allocate(1);
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x800));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 e0 a0 80>');
+      bytes.putUTF8RawString(String.fromCharCode(0x800));
+      assert(bytes.toString() === '<ByteBuffer e0 a0 80>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x800));
@@ -582,8 +592,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0x801));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 e0 a0 81>');
+      bytes.putUTF8RawString(String.fromCharCode(0x801));
+      assert(bytes.toString() === '<ByteBuffer e0 a0 81>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0x801));
@@ -591,8 +601,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString('𐐀'); // 0xD801 0xDC00
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 04 f0 90 90 80>');
+      bytes.putUTF8RawString('𐐀'); // 0xD801 0xDC00
+      assert(bytes.toString() === '<ByteBuffer f0 90 90 80>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('𐐀');
@@ -600,8 +610,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString('\ud801\udc01'); // 0xD801 0xDC01
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 04 f0 90 90 81>');
+      bytes.putUTF8RawString('\ud801\udc01'); // 0xD801 0xDC01
+      assert(bytes.toString() === '<ByteBuffer f0 90 90 81>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('\ud801\udc01');
@@ -609,8 +619,8 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0xFFFE));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 ef bf be>');
+      bytes.putUTF8RawString(String.fromCharCode(0xFFFE));
+      assert(bytes.toString() === '<ByteBuffer ef bf be>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0xFFFE));
@@ -618,12 +628,25 @@ describe('byte.test.js', function () {
 
       // UTF-8
       bytes = ByteBuffer.allocate(1);
-      bytes.putString(String.fromCharCode(0xFFFF));
-      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 ef bf bf>');
+      bytes.putUTF8RawString(String.fromCharCode(0xFFFF));
+      assert(bytes.toString() === '<ByteBuffer ef bf bf>');
       // CESU-8
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0xFFFF));
       assert(bytes.toString() === '<ByteBuffer ef bf bf>');
+    });
+
+    it('U+10000 ~ U+10FFFF', function() {
+      // https://en.wikipedia.org/wiki/UTF-8
+      // UTF-8
+      var bytes = ByteBuffer.allocate(1);
+      bytes = ByteBuffer.allocate(1);
+      bytes.putUTF8RawString('𐍈');
+      assert(bytes.toString() === '<ByteBuffer f0 90 8d 88>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('𐍈');
+      assert(bytes.toString() === '<ByteBuffer ed a0 80 ed bd 88>');
     });
 
     it('should put emoji', function () {
@@ -639,6 +662,14 @@ describe('byte.test.js', function () {
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f ed a0 bc ed bc bc>');
       assert.deepEqual(bytes.getRawString(0, 11), str);
+
+      var str = '\ud83c\udf3c';
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(str);
+      assert(bytes.toString() === '<ByteBuffer ed a0 bc ed bc bc>');
+      bytes = ByteBuffer.allocate(1);
+      bytes.putUTF8RawString(str);
+      assert(bytes.toString() === '<ByteBuffer f0 9f 8c bc>');
 
       var bytes = ByteBuffer.allocate(1);
       // java encode bytes: [-19, -96, -67, -19, -72, -128, 87, 119, 119, -23, -126, -93]
