@@ -1,4 +1,13 @@
 
+1.2.0 / 2017-08-04
+==================
+
+**features**
+  * [[`2a052c5`](http://github.com/node-modules/byte/commit/2a052c55c065120a508c98e4595bc11f0c96275a)] - feat: improve putRawString performance (#27) (fengmk2 <<fengmk2@gmail.com>>)
+
+**others**
+  * [[`648867b`](http://github.com/node-modules/byte/commit/648867bed4de6e6ffc664bb6cfa14ede7d2d8c6c)] - chore: bump to 1.1.6 (xiaochen.gaoxc <<xiaochen.gaoxc@alibaba-inc.com>>),
+
 1.1.6 / 2017-05-11
 ==================
 
