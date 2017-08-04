@@ -1,15 +1,4 @@
-/*!
- * byte - test/byte.test.js
- *
- * Copyright(c) 2013 - 2014
- * MIT Licensed
- *
- * Authors:
- *   fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
- *   dead-horse <dead_horse@qq.com> (https://github.com/dead-horse)
- */
-
-"use strict";
+'use strict';
 
 var Long = require('long');
 var assert = require('assert');
@@ -494,6 +483,149 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer>');
     });
 
+    it('should 000000000xxxxxxx (0x0000 ~ 0x007f) => 0xxxxxxx (0x00 ~ 0x7f)', function() {
+      // UTF-8
+      var bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x0000));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 00>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x0000));
+      assert(bytes.toString() === '<ByteBuffer 00>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x0001));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 01>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x0001));
+      assert(bytes.toString() === '<ByteBuffer 01>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString('E'); // 0x45
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 45>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('E');
+      assert(bytes.toString() === '<ByteBuffer 45>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x7F));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 01 7f>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x7F));
+      assert(bytes.toString() === '<ByteBuffer 7f>');
+    });
+
+    it('should 00000yyyyyxxxxxx (0x0080 ~ 0x07ff) => 110yyyyy (0xc0 ~ 0xdf) | 10xxxxxx (0x80 ~ 0xbf)', function() {
+      // UTF-8
+      var bytes = ByteBuffer.allocate(1);
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x80));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c2 80>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x80));
+      assert(bytes.toString() === '<ByteBuffer c2 80>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString('ȅ'); // 0x0205: 517
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c8 85>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('ȅ');
+      assert(bytes.toString() === '<ByteBuffer c8 85>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x81));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c2 81>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x81));
+      assert(bytes.toString() === '<ByteBuffer c2 81>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x7FE));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 df be>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x7FE));
+      assert(bytes.toString() === '<ByteBuffer df be>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x7FF));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 02 df bf>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x7FF));
+      assert(bytes.toString() === '<ByteBuffer df bf>');
+    });
+
+    it('should zzzzyyyyyyxxxxxx (0x0800 ~ 0xffff) => 1110zzzz (0xe0 ~ 0xef) | 10yyyyyy (0x80 ~ 0xbf) | 10xxxxxx (0x80 ~ 0xbf)', function() {
+      // UTF-8
+      var bytes = ByteBuffer.allocate(1);
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x800));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 e0 a0 80>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x800));
+      assert(bytes.toString() === '<ByteBuffer e0 a0 80>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0x801));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 e0 a0 81>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0x801));
+      assert(bytes.toString() === '<ByteBuffer e0 a0 81>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString('𐐀'); // 0xD801 0xDC00
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 04 f0 90 90 80>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('𐐀');
+      assert(bytes.toString() === '<ByteBuffer ed a0 81 ed b0 80>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString('\ud801\udc01'); // 0xD801 0xDC01
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 04 f0 90 90 81>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('\ud801\udc01');
+      assert(bytes.toString() === '<ByteBuffer ed a0 81 ed b0 81>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0xFFFE));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 ef bf be>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0xFFFE));
+      assert(bytes.toString() === '<ByteBuffer ef bf be>');
+
+      // UTF-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putString(String.fromCharCode(0xFFFF));
+      assert(bytes.toString() === '<ByteBuffer 00 00 00 03 ef bf bf>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString(String.fromCharCode(0xFFFF));
+      assert(bytes.toString() === '<ByteBuffer ef bf bf>');
+    });
+
     it('should put emoji', function () {
       // utf8
       var bytes = ByteBuffer.allocate(1);
@@ -514,7 +646,7 @@ describe('byte.test.js', function () {
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       assert.deepEqual(bytes.getRawString(0, 12), str);
-      
+
       // Construction of a special test case which triggers the bug
       // of allocating insufficient space via _checkSize
       var bytes = ByteBuffer.allocate(4);

@@ -4,10 +4,10 @@
   "description": "Input Buffer and Output Buffer, just like Java ByteBuffer",
   "main": "lib/byte.js",
   "files": [
-    "lib/"
+    "lib"
   ],
   "scripts": {
-    "test": "mocha -R spec -t 5000 test/*.test.js",
+    "test": "mocha --require intelli-espower-loader -R spec -t 5000 test/*.test.js",
     "test-cov": "node node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -t 5000 test/*.test.js",
     "test-travis": "node node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- -t 5000 test/*.test.js",
     "jshint": "jshint .",
@@ -26,10 +26,13 @@
     "beautify-benchmark": "0",
     "benchmark": "1",
     "contributors": "*",
+    "fastbench": "^1.0.1",
+    "intelli-espower-loader": "^1.0.1",
     "istanbul": "*",
     "jshint": "*",
     "mocha": "*",
-    "optimized": "^1.2.0"
+    "optimized": "^1.2.0",
+    "power-assert": "^1.4.4"
   },
   "homepage": "https://github.com/node-modules/byte",
   "repository": {
