@@ -430,6 +430,9 @@ describe('byte.test.js', function () {
       bytes.put(1);
       assert(bytes.toString() === '<ByteBuffer 01>');
       assert(bytes.get(0) === 1);
+      assert(bytes.getByte(0) === 1);
+      bytes.reset();
+      assert(bytes.getByte() === 1);
 
       bytes.put(0, 2);
       assert(bytes.toString() === '<ByteBuffer 02>');
@@ -624,6 +627,19 @@ describe('byte.test.js', function () {
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString(String.fromCharCode(0xFFFF));
       assert(bytes.toString() === '<ByteBuffer ef bf bf>');
+    });
+
+    it('U+10000 ~ U+10FFFF', function() {
+      // https://en.wikipedia.org/wiki/UTF-8
+      // UTF-8
+      var bytes = ByteBuffer.allocate(1);
+      bytes = ByteBuffer.allocate(1);
+      bytes.putUTF8RawString('𐍈');
+      assert(bytes.toString() === '<ByteBuffer f0 90 8d 88>');
+      // CESU-8
+      bytes = ByteBuffer.allocate(1);
+      bytes.putRawString('𐍈');
+      assert(bytes.toString() === '<ByteBuffer ed a0 80 ed bd 88>');
     });
 
     it('should put emoji', function () {
