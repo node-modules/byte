@@ -14,7 +14,8 @@
     "autod": "autod -w --prefix '^' -e benchmark && npm run cnpm",
     "cnpm": "npm install --registry=https://registry.npm.taobao.org",
     "contributors": "contributors -f plain -o AUTHORS",
-    "optimized": "node --allow-natives-syntax --trace_opt --trace_deopt test/optimized.js"
+    "optimized": "node --allow-natives-syntax --trace_opt --trace_deopt test/optimized.js",
+    "benchmark": "node benchmark/putRawString.js"
   },
   "dependencies": {
     "debug": "^2.6.6",
