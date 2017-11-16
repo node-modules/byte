@@ -1,4 +1,13 @@
 
+1.3.0 / 2017-11-16
+==================
+
+**features**
+  * [[`8dd202f`](http://github.com/node-modules/byte/commit/8dd202f06fba076169b9ff3231e65cfc21140555)] - feat: support get raw string by string length (#30) (Yiyu He <<dead_horse@qq.com>>)
+
+**others**
+  * [[`7dd0a0c`](http://github.com/node-modules/byte/commit/7dd0a0c7dda5a0c3e5bf49b3449767e69dfc43b5)] - chore: remove duplicated commits on History.md (fengmk2 <<fengmk2@gmail.com>>)
+
 1.2.0 / 2017-08-04
 ==================
 
