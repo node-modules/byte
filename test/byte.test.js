@@ -779,9 +779,10 @@ describe('byte.test.js', function () {
       var str = '你好啊,1234,abcde,\ud83d\ude00Www那';
       bytes.putRawString(str);
       var pos = bytes.position();
-      assert(str === bytes.getRawStringByStringLength(0, str.length));
       bytes.position(0);
       assert(str === bytes.getRawStringByStringLength(0, str.length));
+      assert(bytes.position() === 0);
+      assert(str === bytes.getRawStringByStringLength(str.length));
       assert(bytes.position() === pos);
     });
 
