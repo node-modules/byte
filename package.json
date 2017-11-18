@@ -11,9 +11,7 @@
     "test-cov": "node node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -t 5000 test/*.test.js",
     "test-travis": "node node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- -t 5000 test/*.test.js",
     "jshint": "jshint .",
-    "autod": "autod -w --prefix '^' -e benchmark && npm run cnpm",
-    "cnpm": "npm install --registry=https://registry.npm.taobao.org",
-    "contributors": "contributors -f plain -o AUTHORS",
+    "autod": "autod -w --prefix '^' -e benchmark",
     "optimized": "node --allow-natives-syntax --trace_opt --trace_deopt test/optimized.js"
   },
   "dependencies": {
@@ -25,7 +23,6 @@
     "autod": "*",
     "beautify-benchmark": "0",
     "benchmark": "1",
-    "contributors": "*",
     "fastbench": "^1.0.1",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "*",

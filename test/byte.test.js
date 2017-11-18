@@ -430,6 +430,9 @@ describe('byte.test.js', function () {
       bytes.put(1);
       assert(bytes.toString() === '<ByteBuffer 01>');
       assert(bytes.get(0) === 1);
+      assert(bytes.getByte(0) === 1);
+      bytes.reset();
+      assert(bytes.getByte() === 1);
 
       bytes.put(0, 2);
       assert(bytes.toString() === '<ByteBuffer 02>');
