@@ -467,6 +467,10 @@ describe('byte.test.js', function () {
       assert(bytes.getRawString(0, 11) === 'hello world');
       assert(bytes.getRawStringByStringLength(0, 11) === 'hello world');
       bytes.position(0);
+      assert(bytes.getRawStringFast(11) === 'hello world');
+      bytes.position(0);
+      assert(bytes.getUTF8String(11) === 'hello world');
+      bytes.position(0);
       assert(bytes.getRawString() === 'h');
 
       bytes = ByteBuffer.allocate(1);
@@ -474,12 +478,14 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer e4 bd a0 e5 a5 bd>');
       assert(bytes.position(0).readRawString(6) === '你好');
       assert(bytes.position(0).getRawString(0, 6) === '你好');
+      assert(bytes.position(0).getRawStringFast(2) === '你好');
       assert(bytes.position(0).getRawStringByStringLength(2) === '你好');
       bytes.putRawString(0, '我们');
       assert(bytes.toString() === '<ByteBuffer e6 88 91 e4 bb ac>');
       assert(bytes.getRawString(0, 6) === '我们');
       assert(bytes.getRawStringByStringLength(0, 2) === '我们');
       assert(bytes.readRawString(0, 6) === '我们');
+      assert(bytes.position(0).getRawStringFast(2) === '我们');
 
       bytes = ByteBuffer.allocate(1);
       bytes.putRawString('');
@@ -637,6 +643,7 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f e9 a6 83 e5 b0 b2>');
       assert.deepEqual(bytes.getRawString(0, 11), str);
       assert.deepEqual(bytes.getRawStringByStringLength(0, 7), str);
+      assert.deepEqual(bytes.position(0).getRawStringFast(7), str);
       // gbk
       var bytes = ByteBuffer.allocate(1);
       var str = 'hello\ud83c\udf3c';
@@ -644,6 +651,7 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f ed a0 bc ed bc bc>');
       assert.deepEqual(bytes.getRawString(0, 11), str);
       assert.deepEqual(bytes.getRawStringByStringLength(0, 7), str);
+      assert.deepEqual(bytes.position(0).getRawStringFast(7), str);
 
       var bytes = ByteBuffer.allocate(1);
       // java encode bytes: [-19, -96, -67, -19, -72, -128, 87, 119, 119, -23, -126, -93]
@@ -652,6 +660,7 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       assert.deepEqual(bytes.getRawString(0, 12), str);
       assert.deepEqual(bytes.getRawStringByStringLength(0, 6), str);
+      assert.deepEqual(bytes.position(0).getRawStringFast(6), str);
 
       // Construction of a special test case which triggers the bug
       // of allocating insufficient space via _checkSize
@@ -659,6 +668,17 @@ describe('byte.test.js', function () {
       var str = '\ud83d\ude00';
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80>');
+    });
+  });
+
+  describe('putUTF8String/getUTF8String', function () {
+    it('should put & get utf string ok', function () {
+      var bytes = ByteBuffer.allocate(1);
+      var str = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234';
+      bytes.putUTF8String(str);
+      bytes.flip();
+      var output = bytes.getUTF8String(bytes.limit());
+      assert(output === str);
     });
   });
 
@@ -782,7 +802,12 @@ describe('byte.test.js', function () {
       bytes.position(0);
       assert(str === bytes.getRawStringByStringLength(0, str.length));
       assert(bytes.position() === 0);
+      assert(str === bytes.getRawStringFast(str.length));
+      bytes.position(0);
       assert(str === bytes.getRawStringByStringLength(str.length));
+      assert(bytes.position() === pos);
+      bytes.position(0);
+      assert(str === bytes.getRawStringFast(str.length));
       assert(bytes.position() === pos);
     });
 
@@ -793,6 +818,10 @@ describe('byte.test.js', function () {
       bytes.put(0xfd);
       assert.throws(function () {
         bytes.getRawStringByStringLength(0, str.length + 1);
+      }, 'string is not valid UTF-8 encode');
+      assert.throws(function () {
+        bytes.position(0)
+        bytes.getRawStringFast(str.length + 1);
       }, 'string is not valid UTF-8 encode');
     });
   });
