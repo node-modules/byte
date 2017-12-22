@@ -746,31 +746,31 @@ describe('byte.test.js', function () {
   });
 
   describe('get(dst, offset, length)', function () {
-   it('should get(dst, offset, length)', function () {
-     var bytes = ByteBuffer.allocate(4);
-     bytes.putInt(1);
-     bytes.flip(); // switch to read mode
-     var buf = new Buffer(4);
-     bytes.get(buf);
-     assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
+    it('should get(dst, offset, length)', function () {
+      var bytes = ByteBuffer.allocate(4);
+      bytes.putInt(1);
+      bytes.flip(); // switch to read mode
+      var buf = new Buffer(4);
+      bytes.get(buf);
+      assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
 
-     var buf2 = new Buffer(1);
-     assert.throws(function() {
-       bytes.get(buf2);
-     }, 'BufferOverflowException');
-   });
+      var buf2 = new Buffer(1);
+      assert.throws(function() {
+        bytes.get(buf2);
+      }, 'BufferOverflowException');
+    });
 
-   it('should get(dst, offset, length) again', function () {
-     var bytes = ByteBuffer.allocate(8);
-     bytes.putInt(1);
-     bytes.putInt(5);
-     bytes.flip(); // switch to read mode
-     var buf = new Buffer(4);
-     bytes.get(buf);
-     assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
-     bytes.get(buf);
-     assert.deepEqual(buf, new Buffer([0, 0, 0, 5]));
-   });
+    it('should get(dst, offset, length) again', function () {
+      var bytes = ByteBuffer.allocate(8);
+      bytes.putInt(1);
+      bytes.putInt(5);
+      bytes.flip(); // switch to read mode
+      var buf = new Buffer(4);
+      bytes.get(buf);
+      assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
+      bytes.get(buf);
+      assert.deepEqual(buf, new Buffer([0, 0, 0, 5]));
+    });
   });
 
   describe('getRawStringByStringLength()', function () {
@@ -794,6 +794,27 @@ describe('byte.test.js', function () {
       assert.throws(function () {
         bytes.getRawStringByStringLength(0, str.length + 1);
       }, 'string is not valid UTF-8 encode');
+    });
+  });
+
+  describe('memcpy()', function () {
+    var bytes = ByteBuffer.allocate(1000);
+    it('should fill hello', function () {
+      var str = 'hello';
+      bytes.putRawString(str);
+      const buff = Buffer.alloc(10);
+      const copied = bytes.memcpy(buff);
+
+      assert.strictEqual(copied, 5);
+      assert.strictEqual(buff.toString(), 'hello\u0000\u0000\u0000\u0000\u0000');
+    });
+
+    it('should fill hel', function () {
+      const buff = Buffer.alloc(3);
+      const copied = bytes.memcpy(buff);
+
+      assert.strictEqual(copied, 3);
+      assert.strictEqual(buff.toString(), 'hel');
     });
   });
 });
