@@ -806,7 +806,11 @@ describe('byte.test.js', function () {
       var copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 5);
-      assert.strictEqual(buff.toString(), 'hello\u0000\u0000\u0000\u0000\u0000');
+      assert.strictEqual(buff.slice(0, 5).toString(), 'hello');
+
+      for (var i = 5; i < 10; i++) {
+        assert.strictEqual(buff[i], 0);
+      }
     });
 
     it('should fill hel', function () {
