@@ -797,6 +797,10 @@ describe('byte.test.js', function () {
     });
   });
 
+  function initBuff(buf) {
+    for (var i = 0; i < buf.length; i++) buf[i] = 0;
+  }
+
   describe('memcpy()', function () {
     var bytes = ByteBuffer.allocate(1000);
     it('should fill hello', function () {
