@@ -807,6 +807,7 @@ describe('byte.test.js', function () {
       var str = 'hello';
       bytes.putRawString(str);
       var buff = new Buffer(10);
+      initBuff(buff);
       var copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 5);
@@ -819,6 +820,7 @@ describe('byte.test.js', function () {
 
     it('should fill hel', function () {
       var buff = new Buffer(3);
+      initBuff(buff);
       var copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 3);
