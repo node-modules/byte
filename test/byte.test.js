@@ -802,16 +802,16 @@ describe('byte.test.js', function () {
     it('should fill hello', function () {
       var str = 'hello';
       bytes.putRawString(str);
-      const buff = Buffer.alloc(10);
-      const copied = bytes.memcpy(buff);
+      var buff = new Buffer(10);
+      var copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 5);
       assert.strictEqual(buff.toString(), 'hello\u0000\u0000\u0000\u0000\u0000');
     });
 
     it('should fill hel', function () {
-      const buff = Buffer.alloc(3);
-      const copied = bytes.memcpy(buff);
+      var buff = new Buffer(3);
+      var copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 3);
       assert.strictEqual(buff.toString(), 'hel');
