@@ -1,4 +1,10 @@
 
+1.4.0 / 2018-01-30
+==================
+
+**features**
+  * [[`2f29793`](http://github.com/node-modules/byte/commit/2f2979376256dd7deae4cc312c4dd019e1ab13ea)] - feat: add memcpy() (#32) (Khaidi Chu <<i@2333.moe>>)
+
 1.3.0 / 2017-11-16
 ==================
 
