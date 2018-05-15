@@ -1,4 +1,10 @@
 
+1.4.1 / 2018-05-15
+==================
+
+**fixes**
+  * [[`ccc6f4b`](http://github.com/node-modules/byte/commit/ccc6f4b206d01761c38ca2717014b646ce8f4c93)] - fix: using Buffer.alloc(size) instead of new Buffer(size) (#34) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.4.0 / 2018-01-30
 ==================
 
