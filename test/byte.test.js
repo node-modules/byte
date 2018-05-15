@@ -757,7 +757,7 @@ describe('byte.test.js', function () {
       var buf2 = new Buffer(1);
       assert.throws(function() {
         bytes.get(buf2);
-      }, 'BufferOverflowException');
+      }, null, 'BufferOverflowException');
     });
 
     it('should get(dst, offset, length) again', function () {
@@ -793,7 +793,7 @@ describe('byte.test.js', function () {
       bytes.put(0xfd);
       assert.throws(function () {
         bytes.getRawStringByStringLength(0, str.length + 1);
-      }, 'string is not valid UTF-8 encode');
+      }, null, 'string is not valid UTF-8 encode');
     });
   });
 
