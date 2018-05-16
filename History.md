@@ -1,4 +1,10 @@
 
+2.0.0 / 2018-05-16
+==================
+
+**features**
+  * [[`dc4f5a6`](http://github.com/node-modules/byte/commit/dc4f5a6cfcf2d48bbe6baa8a8640a5111ea66a76)] - feat: stop supporting node <= 8 (#35) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.4.1 / 2018-05-15
 ==================
 
