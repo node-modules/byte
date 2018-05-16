@@ -1,0 +1,5 @@
+test/fixtures/apps/**/*
+node_modules
+coverage/
+.tmp/
+.git/

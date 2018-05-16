@@ -1,21 +1,21 @@
 'use strict';
 
-var Long = require('long');
-var assert = require('assert');
-var ByteBuffer = require('../');
+const Long = require('long');
+const assert = require('assert');
+const ByteBuffer = require('../');
 
-describe('byte.test.js', function () {
-  describe('new ByteBuffer()', function () {
-    it('should create ByteBuffer', function () {
-      var bytes = new ByteBuffer();
+describe('byte.test.js', function() {
+  describe('new ByteBuffer()', function() {
+    it('should create ByteBuffer', function() {
+      const bytes = new ByteBuffer();
       assert(bytes.array().length === 0);
       assert(bytes.position() === 0);
     });
   });
 
-  describe('putString(), getString()', function () {
-    it('should put empty string', function () {
-      var bytes = new ByteBuffer({size: 1});
+  describe('putString(), getString()', function() {
+    it('should put empty string', function() {
+      const bytes = new ByteBuffer({ size: 1 });
       bytes.putString('');
       bytes.putString('');
       bytes.putString(null);
@@ -29,8 +29,8 @@ describe('byte.test.js', function () {
       assert(bytes.getString() === '');
     });
 
-    it('should put strings', function () {
-      var bytes = new ByteBuffer({size: 10});
+    it('should put strings', function() {
+      let bytes = new ByteBuffer({ size: 10 });
       bytes.putString('foo, 中文');
       assert(bytes.getString(0) === 'foo, 中文');
       bytes.putString(0, 'foo, 中国');
@@ -43,16 +43,16 @@ describe('byte.test.js', function () {
       bytes.position(0);
       assert(bytes.getString() === 'foo, 中国');
 
-      bytes = new ByteBuffer({size: 1});
+      bytes = new ByteBuffer({ size: 1 });
       bytes.putCString(0, '');
       assert(bytes._size === 4 * 2);
 
-      bytes = new ByteBuffer({size: 10});
+      bytes = new ByteBuffer({ size: 10 });
       bytes.putCString('foo, \u0000中文\u0000');
       assert(bytes.getCString(0) === 'foo, \u0000中文\u0000');
       bytes.putCString(0, 'bar123123, \u0000中文\u0000');
       assert(bytes.getCString(0) === 'bar123123, \u0000中文\u0000');
-      var lbadstr = 'bar123123123123123123123123123123123123, \u0000中文\u0000';
+      const lbadstr = 'bar123123123123123123123123123123123123, \u0000中文\u0000';
       bytes.putCString(0, lbadstr);
       assert(bytes.getCString(0) === lbadstr);
 
@@ -68,9 +68,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putChar(), getChar()', function () {
-    it('should put a char', function () {
-      var bytes = ByteBuffer.allocate(2);
+  describe('putChar(), getChar()', function() {
+    it('should put a char', function() {
+      const bytes = ByteBuffer.allocate(2);
       bytes.putChar('a');
       assert(bytes.toString() === '<ByteBuffer 61>');
       bytes.putChar('A');
@@ -98,28 +98,28 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putFloat(), getFloat()', function () {
-    it('should put a float', function () {
-      var cases = [
+  describe('putFloat(), getFloat()', function() {
+    it('should put a float', function() {
+      const cases = [
         // value, big, litter
-        [-91.99999, '<ByteBuffer c2 b7 ff ff>', '<ByteBuffer ff ff b7 c2>'],
-        [-100, '<ByteBuffer c2 c8 00 00>', '<ByteBuffer 00 00 c8 c2>'],
-        [-1, '<ByteBuffer bf 80 00 00>', '<ByteBuffer 00 00 80 bf>'],
-        [0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>'],
-        [1, '<ByteBuffer 3f 80 00 00>', '<ByteBuffer 00 00 80 3f>'],
-        [2, '<ByteBuffer 40 00 00 00>', '<ByteBuffer 00 00 00 40>'],
-        [100, '<ByteBuffer 42 c8 00 00>', '<ByteBuffer 00 00 c8 42>'],
-        [999, '<ByteBuffer 44 79 c0 00>', '<ByteBuffer 00 c0 79 44>'],
-        [99.999, '<ByteBuffer 42 c7 ff 7d>', '<ByteBuffer 7d ff c7 42>'],
-        [1024, '<ByteBuffer 44 80 00 00>', '<ByteBuffer 00 00 80 44>'],
-        [123123.125, '<ByteBuffer 47 f0 79 90>', '<ByteBuffer 90 79 f0 47>'],
+        [ -91.99999, '<ByteBuffer c2 b7 ff ff>', '<ByteBuffer ff ff b7 c2>' ],
+        [ -100, '<ByteBuffer c2 c8 00 00>', '<ByteBuffer 00 00 c8 c2>' ],
+        [ -1, '<ByteBuffer bf 80 00 00>', '<ByteBuffer 00 00 80 bf>' ],
+        [ 0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>' ],
+        [ 1, '<ByteBuffer 3f 80 00 00>', '<ByteBuffer 00 00 80 3f>' ],
+        [ 2, '<ByteBuffer 40 00 00 00>', '<ByteBuffer 00 00 00 40>' ],
+        [ 100, '<ByteBuffer 42 c8 00 00>', '<ByteBuffer 00 00 c8 42>' ],
+        [ 999, '<ByteBuffer 44 79 c0 00>', '<ByteBuffer 00 c0 79 44>' ],
+        [ 99.999, '<ByteBuffer 42 c7 ff 7d>', '<ByteBuffer 7d ff c7 42>' ],
+        [ 1024, '<ByteBuffer 44 80 00 00>', '<ByteBuffer 00 00 80 44>' ],
+        [ 123123.125, '<ByteBuffer 47 f0 79 90>', '<ByteBuffer 90 79 f0 47>' ],
       ];
-      var bytes = ByteBuffer.allocate(4);
+      const bytes = ByteBuffer.allocate(4);
       bytes.putFloat(0);
       assert(bytes.toString() === '<ByteBuffer 00 00 00 00>');
       bytes.position(0);
       assert(bytes.getFloat() === 0);
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putFloat(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -133,32 +133,32 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putInt(), getInt()', function () {
-    it('should put an int', function () {
-      var cases = [
+  describe('putInt(), getInt()', function() {
+    it('should put an int', function() {
+      const cases = [
         // value, big, litter
-        [-91, '<ByteBuffer ff ff ff a5>', '<ByteBuffer a5 ff ff ff>'],
-        [-100, '<ByteBuffer ff ff ff 9c>', '<ByteBuffer 9c ff ff ff>'],
-        [-1, '<ByteBuffer ff ff ff ff>', '<ByteBuffer ff ff ff ff>'],
-        [0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>'],
-        [1, '<ByteBuffer 00 00 00 01>', '<ByteBuffer 01 00 00 00>'],
-        [2, '<ByteBuffer 00 00 00 02>', '<ByteBuffer 02 00 00 00>'],
-        [100, '<ByteBuffer 00 00 00 64>', '<ByteBuffer 64 00 00 00>'],
-        [999, '<ByteBuffer 00 00 03 e7>', '<ByteBuffer e7 03 00 00>'],
-        [99999, '<ByteBuffer 00 01 86 9f>', '<ByteBuffer 9f 86 01 00>'],
-        [1024, '<ByteBuffer 00 00 04 00>', '<ByteBuffer 00 04 00 00>'],
-        [-2147483648, '<ByteBuffer 80 00 00 00>', '<ByteBuffer 00 00 00 80>'],
-        [-2147483647, '<ByteBuffer 80 00 00 01>', '<ByteBuffer 01 00 00 80>'],
+        [ -91, '<ByteBuffer ff ff ff a5>', '<ByteBuffer a5 ff ff ff>' ],
+        [ -100, '<ByteBuffer ff ff ff 9c>', '<ByteBuffer 9c ff ff ff>' ],
+        [ -1, '<ByteBuffer ff ff ff ff>', '<ByteBuffer ff ff ff ff>' ],
+        [ 0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>' ],
+        [ 1, '<ByteBuffer 00 00 00 01>', '<ByteBuffer 01 00 00 00>' ],
+        [ 2, '<ByteBuffer 00 00 00 02>', '<ByteBuffer 02 00 00 00>' ],
+        [ 100, '<ByteBuffer 00 00 00 64>', '<ByteBuffer 64 00 00 00>' ],
+        [ 999, '<ByteBuffer 00 00 03 e7>', '<ByteBuffer e7 03 00 00>' ],
+        [ 99999, '<ByteBuffer 00 01 86 9f>', '<ByteBuffer 9f 86 01 00>' ],
+        [ 1024, '<ByteBuffer 00 00 04 00>', '<ByteBuffer 00 04 00 00>' ],
+        [ -2147483648, '<ByteBuffer 80 00 00 00>', '<ByteBuffer 00 00 00 80>' ],
+        [ -2147483647, '<ByteBuffer 80 00 00 01>', '<ByteBuffer 01 00 00 80>' ],
         // Math.pow(2, 31) - 1
-        [2147483647, '<ByteBuffer 7f ff ff ff>', '<ByteBuffer ff ff ff 7f>'],
-        [2147483646, '<ByteBuffer 7f ff ff fe>', '<ByteBuffer fe ff ff 7f>'],
+        [ 2147483647, '<ByteBuffer 7f ff ff ff>', '<ByteBuffer ff ff ff 7f>' ],
+        [ 2147483646, '<ByteBuffer 7f ff ff fe>', '<ByteBuffer fe ff ff 7f>' ],
       ];
-      var bytes = ByteBuffer.allocate(1);
+      const bytes = ByteBuffer.allocate(1);
       bytes.putInt(0);
       assert(bytes.toString() === '<ByteBuffer 00 00 00 00>');
       bytes.position(0);
       assert(bytes.getInt() === 0);
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putInt(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -172,9 +172,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putInt8(), getInt8(), putUInt8(), getUInt8()', function () {
-    it('should put and get 8 bits int', function () {
-      var bytes = ByteBuffer.allocate(1);
+  describe('putInt8(), getInt8(), putUInt8(), getUInt8()', function() {
+    it('should put and get 8 bits int', function() {
+      const bytes = ByteBuffer.allocate(1);
       bytes.putInt8(-128);
       assert(bytes.toString() === '<ByteBuffer 80>');
       bytes.putInt8(0, -128);
@@ -202,33 +202,33 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putUInt(), getUInt()', function () {
-    it('should put an int', function () {
-      var cases = [
+  describe('putUInt(), getUInt()', function() {
+    it('should put an int', function() {
+      const cases = [
         // value, big, litter
-        [0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>'],
-        [1, '<ByteBuffer 00 00 00 01>', '<ByteBuffer 01 00 00 00>'],
-        [2, '<ByteBuffer 00 00 00 02>', '<ByteBuffer 02 00 00 00>'],
-        [100, '<ByteBuffer 00 00 00 64>', '<ByteBuffer 64 00 00 00>'],
-        [999, '<ByteBuffer 00 00 03 e7>', '<ByteBuffer e7 03 00 00>'],
-        [99999, '<ByteBuffer 00 01 86 9f>', '<ByteBuffer 9f 86 01 00>'],
-        [1024, '<ByteBuffer 00 00 04 00>', '<ByteBuffer 00 04 00 00>'],
+        [ 0, '<ByteBuffer 00 00 00 00>', '<ByteBuffer 00 00 00 00>' ],
+        [ 1, '<ByteBuffer 00 00 00 01>', '<ByteBuffer 01 00 00 00>' ],
+        [ 2, '<ByteBuffer 00 00 00 02>', '<ByteBuffer 02 00 00 00>' ],
+        [ 100, '<ByteBuffer 00 00 00 64>', '<ByteBuffer 64 00 00 00>' ],
+        [ 999, '<ByteBuffer 00 00 03 e7>', '<ByteBuffer e7 03 00 00>' ],
+        [ 99999, '<ByteBuffer 00 01 86 9f>', '<ByteBuffer 9f 86 01 00>' ],
+        [ 1024, '<ByteBuffer 00 00 04 00>', '<ByteBuffer 00 04 00 00>' ],
         // Math.pow(2, 31) - 1
-        [2147483647, '<ByteBuffer 7f ff ff ff>', '<ByteBuffer ff ff ff 7f>'],
-        [2147483646, '<ByteBuffer 7f ff ff fe>', '<ByteBuffer fe ff ff 7f>'],
-        [2147483648, '<ByteBuffer 80 00 00 00>', '<ByteBuffer 00 00 00 80>'],
-        [3249209323, '<ByteBuffer c1 aa ff eb>', '<ByteBuffer eb ff aa c1>'],
+        [ 2147483647, '<ByteBuffer 7f ff ff ff>', '<ByteBuffer ff ff ff 7f>' ],
+        [ 2147483646, '<ByteBuffer 7f ff ff fe>', '<ByteBuffer fe ff ff 7f>' ],
+        [ 2147483648, '<ByteBuffer 80 00 00 00>', '<ByteBuffer 00 00 00 80>' ],
+        [ 3249209323, '<ByteBuffer c1 aa ff eb>', '<ByteBuffer eb ff aa c1>' ],
         // Math.pow(2, 32 - 2)
-        [4294967294, '<ByteBuffer ff ff ff fe>', '<ByteBuffer fe ff ff ff>'],
+        [ 4294967294, '<ByteBuffer ff ff ff fe>', '<ByteBuffer fe ff ff ff>' ],
         // Math.pow(2, 32 - 1)
-        [4294967295, '<ByteBuffer ff ff ff ff>', '<ByteBuffer ff ff ff ff>'],
+        [ 4294967295, '<ByteBuffer ff ff ff ff>', '<ByteBuffer ff ff ff ff>' ],
       ];
-      var bytes = ByteBuffer.allocate(1);
+      const bytes = ByteBuffer.allocate(1);
       bytes.putUInt(0);
       assert(bytes.toString() === '<ByteBuffer 00 00 00 00>');
       bytes.position(0);
       assert(bytes.getUInt() === 0);
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putUInt(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -242,33 +242,33 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putShort(), getShort()', function () {
-    it('should put a short', function () {
-      var cases = [
+  describe('putShort(), getShort()', function() {
+    it('should put a short', function() {
+      const cases = [
         // value, big, litter
-        [-91, '<ByteBuffer ff a5>', '<ByteBuffer a5 ff>'],
-        [-100, '<ByteBuffer ff 9c>', '<ByteBuffer 9c ff>'],
-        [-1, '<ByteBuffer ff ff>', '<ByteBuffer ff ff>'],
-        [0, '<ByteBuffer 00 00>', '<ByteBuffer 00 00>'],
-        [1, '<ByteBuffer 00 01>', '<ByteBuffer 01 00>'],
-        [2, '<ByteBuffer 00 02>', '<ByteBuffer 02 00>'],
-        [100, '<ByteBuffer 00 64>', '<ByteBuffer 64 00>'],
-        [999, '<ByteBuffer 03 e7>', '<ByteBuffer e7 03>'],
-        [9999, '<ByteBuffer 27 0f>', '<ByteBuffer 0f 27>'],
-        [1024, '<ByteBuffer 04 00>', '<ByteBuffer 00 04>'],
-        [-32768, '<ByteBuffer 80 00>', '<ByteBuffer 00 80>'],
-        [-32767, '<ByteBuffer 80 01>', '<ByteBuffer 01 80>'],
+        [ -91, '<ByteBuffer ff a5>', '<ByteBuffer a5 ff>' ],
+        [ -100, '<ByteBuffer ff 9c>', '<ByteBuffer 9c ff>' ],
+        [ -1, '<ByteBuffer ff ff>', '<ByteBuffer ff ff>' ],
+        [ 0, '<ByteBuffer 00 00>', '<ByteBuffer 00 00>' ],
+        [ 1, '<ByteBuffer 00 01>', '<ByteBuffer 01 00>' ],
+        [ 2, '<ByteBuffer 00 02>', '<ByteBuffer 02 00>' ],
+        [ 100, '<ByteBuffer 00 64>', '<ByteBuffer 64 00>' ],
+        [ 999, '<ByteBuffer 03 e7>', '<ByteBuffer e7 03>' ],
+        [ 9999, '<ByteBuffer 27 0f>', '<ByteBuffer 0f 27>' ],
+        [ 1024, '<ByteBuffer 04 00>', '<ByteBuffer 00 04>' ],
+        [ -32768, '<ByteBuffer 80 00>', '<ByteBuffer 00 80>' ],
+        [ -32767, '<ByteBuffer 80 01>', '<ByteBuffer 01 80>' ],
         // Math.pow(2, 15) - 1
-        [32767, '<ByteBuffer 7f ff>', '<ByteBuffer ff 7f>'],
-        [32766, '<ByteBuffer 7f fe>', '<ByteBuffer fe 7f>'],
+        [ 32767, '<ByteBuffer 7f ff>', '<ByteBuffer ff 7f>' ],
+        [ 32766, '<ByteBuffer 7f fe>', '<ByteBuffer fe 7f>' ],
       ];
-      var bytes = ByteBuffer.allocate(1);
+      const bytes = ByteBuffer.allocate(1);
       bytes.putShort(0);
       assert(bytes.toString() === '<ByteBuffer 00 00>');
       bytes.position(0);
       assert(bytes.getShort() === 0);
 
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putShort(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -282,32 +282,32 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putUInt16(), getUInt16()', function () {
-    it('should put a uint16', function () {
-      var cases = [
+  describe('putUInt16(), getUInt16()', function() {
+    it('should put a uint16', function() {
+      const cases = [
         // value, big, litter
-        [0, '<ByteBuffer 00 00>', '<ByteBuffer 00 00>'],
-        [1, '<ByteBuffer 00 01>', '<ByteBuffer 01 00>'],
-        [2, '<ByteBuffer 00 02>', '<ByteBuffer 02 00>'],
-        [100, '<ByteBuffer 00 64>', '<ByteBuffer 64 00>'],
-        [999, '<ByteBuffer 03 e7>', '<ByteBuffer e7 03>'],
-        [9999, '<ByteBuffer 27 0f>', '<ByteBuffer 0f 27>'],
-        [1024, '<ByteBuffer 04 00>', '<ByteBuffer 00 04>'],
+        [ 0, '<ByteBuffer 00 00>', '<ByteBuffer 00 00>' ],
+        [ 1, '<ByteBuffer 00 01>', '<ByteBuffer 01 00>' ],
+        [ 2, '<ByteBuffer 00 02>', '<ByteBuffer 02 00>' ],
+        [ 100, '<ByteBuffer 00 64>', '<ByteBuffer 64 00>' ],
+        [ 999, '<ByteBuffer 03 e7>', '<ByteBuffer e7 03>' ],
+        [ 9999, '<ByteBuffer 27 0f>', '<ByteBuffer 0f 27>' ],
+        [ 1024, '<ByteBuffer 04 00>', '<ByteBuffer 00 04>' ],
         // Math.pow(2, 15) - 1
-        [32768, '<ByteBuffer 80 00>', '<ByteBuffer 00 80>'],
-        [40000, '<ByteBuffer 9c 40>', '<ByteBuffer 40 9c>'],
+        [ 32768, '<ByteBuffer 80 00>', '<ByteBuffer 00 80>' ],
+        [ 40000, '<ByteBuffer 9c 40>', '<ByteBuffer 40 9c>' ],
 
         // Math.pow(2, 16) - 1
-        [65534, '<ByteBuffer ff fe>', '<ByteBuffer fe ff>'],
-        [65535, '<ByteBuffer ff ff>', '<ByteBuffer ff ff>'],
+        [ 65534, '<ByteBuffer ff fe>', '<ByteBuffer fe ff>' ],
+        [ 65535, '<ByteBuffer ff ff>', '<ByteBuffer ff ff>' ],
       ];
-      var bytes = ByteBuffer.allocate(1);
+      const bytes = ByteBuffer.allocate(1);
       bytes.putUInt16(0);
       assert(bytes.toString() === '<ByteBuffer 00 00>');
       bytes.position(0);
       assert(bytes.getUInt16() === 0);
 
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putUInt16(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -321,45 +321,46 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putLong(), getLong()', function () {
-    it('should put a long', function () {
-      var cases = [
+  describe('putLong(), getLong()', function() {
+    it('should put a long', function() {
+      const cases = [
         // value, big, litter
-        [-91, '<ByteBuffer ff ff ff ff ff ff ff a5>', '<ByteBuffer a5 ff ff ff ff ff ff ff>'],
-        [-100, '<ByteBuffer ff ff ff ff ff ff ff 9c>', '<ByteBuffer 9c ff ff ff ff ff ff ff>'],
-        [-1, '<ByteBuffer ff ff ff ff ff ff ff ff>', '<ByteBuffer ff ff ff ff ff ff ff ff>'],
-        [0, '<ByteBuffer 00 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 00>'],
-        [1, '<ByteBuffer 00 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 00>'],
-        [2, '<ByteBuffer 00 00 00 00 00 00 00 02>', '<ByteBuffer 02 00 00 00 00 00 00 00>'],
-        [100, '<ByteBuffer 00 00 00 00 00 00 00 64>', '<ByteBuffer 64 00 00 00 00 00 00 00>'],
-        [999, '<ByteBuffer 00 00 00 00 00 00 03 e7>', '<ByteBuffer e7 03 00 00 00 00 00 00>'],
-        [99999, '<ByteBuffer 00 00 00 00 00 01 86 9f>', '<ByteBuffer 9f 86 01 00 00 00 00 00>'],
-        [1024, '<ByteBuffer 00 00 00 00 00 00 04 00>', '<ByteBuffer 00 04 00 00 00 00 00 00>'],
-        [-2147483648, '<ByteBuffer ff ff ff ff 80 00 00 00>', '<ByteBuffer 00 00 00 80 ff ff ff ff>'],
-        [-2147483647, '<ByteBuffer ff ff ff ff 80 00 00 01>', '<ByteBuffer 01 00 00 80 ff ff ff ff>'],
+        [ -91, '<ByteBuffer ff ff ff ff ff ff ff a5>', '<ByteBuffer a5 ff ff ff ff ff ff ff>' ],
+        [ -100, '<ByteBuffer ff ff ff ff ff ff ff 9c>', '<ByteBuffer 9c ff ff ff ff ff ff ff>' ],
+        [ -1, '<ByteBuffer ff ff ff ff ff ff ff ff>', '<ByteBuffer ff ff ff ff ff ff ff ff>' ],
+        [ 0, '<ByteBuffer 00 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 00>' ],
+        [ 1, '<ByteBuffer 00 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 00>' ],
+        [ 2, '<ByteBuffer 00 00 00 00 00 00 00 02>', '<ByteBuffer 02 00 00 00 00 00 00 00>' ],
+        [ 100, '<ByteBuffer 00 00 00 00 00 00 00 64>', '<ByteBuffer 64 00 00 00 00 00 00 00>' ],
+        [ 999, '<ByteBuffer 00 00 00 00 00 00 03 e7>', '<ByteBuffer e7 03 00 00 00 00 00 00>' ],
+        [ 99999, '<ByteBuffer 00 00 00 00 00 01 86 9f>', '<ByteBuffer 9f 86 01 00 00 00 00 00>' ],
+        [ 1024, '<ByteBuffer 00 00 00 00 00 00 04 00>', '<ByteBuffer 00 04 00 00 00 00 00 00>' ],
+        [ -2147483648, '<ByteBuffer ff ff ff ff 80 00 00 00>', '<ByteBuffer 00 00 00 80 ff ff ff ff>' ],
+        [ -2147483647, '<ByteBuffer ff ff ff ff 80 00 00 01>', '<ByteBuffer 01 00 00 80 ff ff ff ff>' ],
         // Math.pow(2, 31) - 1
-        [2147483647, '<ByteBuffer 00 00 00 00 7f ff ff ff>', '<ByteBuffer ff ff ff 7f 00 00 00 00>'],
-        [2147483646, '<ByteBuffer 00 00 00 00 7f ff ff fe>', '<ByteBuffer fe ff ff 7f 00 00 00 00>'],
+        [ 2147483647, '<ByteBuffer 00 00 00 00 7f ff ff ff>', '<ByteBuffer ff ff ff 7f 00 00 00 00>' ],
+        [ 2147483646, '<ByteBuffer 00 00 00 00 7f ff ff fe>', '<ByteBuffer fe ff ff 7f 00 00 00 00>' ],
         // Math.pow(2, 31)
-        [2147483648, '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>'],
-        ['99999', '<ByteBuffer 00 00 00 00 00 01 86 9f>', '<ByteBuffer 9f 86 01 00 00 00 00 00>'],
-        ['2147483648', '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>'],
-        ['-2147483647', '<ByteBuffer ff ff ff ff 80 00 00 01>', '<ByteBuffer 01 00 00 80 ff ff ff ff>'],
+        [ 2147483648, '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>' ],
+        [ '99999', '<ByteBuffer 00 00 00 00 00 01 86 9f>', '<ByteBuffer 9f 86 01 00 00 00 00 00>' ],
+        [ '2147483648', '<ByteBuffer 00 00 00 00 80 00 00 00>', '<ByteBuffer 00 00 00 80 00 00 00 00>' ],
+        [ '-2147483647', '<ByteBuffer ff ff ff ff 80 00 00 01>', '<ByteBuffer 01 00 00 80 ff ff ff ff>' ],
         // 2, 63 - 1
-        ['-9223372036854775808', '<ByteBuffer 80 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 80>'],
-        ['-9223372036854775807', '<ByteBuffer 80 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 80>'],
-        ['9223372036854775807', '<ByteBuffer 7f ff ff ff ff ff ff ff>', '<ByteBuffer ff ff ff ff ff ff ff 7f>'],
-        ['9223372036854775806', '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>'],
+        [ '-9223372036854775808', '<ByteBuffer 80 00 00 00 00 00 00 00>', '<ByteBuffer 00 00 00 00 00 00 00 80>' ],
+        [ '-9223372036854775807', '<ByteBuffer 80 00 00 00 00 00 00 01>', '<ByteBuffer 01 00 00 00 00 00 00 80>' ],
+        [ '9223372036854775807', '<ByteBuffer 7f ff ff ff ff ff ff ff>', '<ByteBuffer ff ff ff ff ff ff ff 7f>' ],
+        [ '9223372036854775806', '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>' ],
 
-        [Long.fromString('9223372036854775806'),
-          '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>'],
+        [ Long.fromString('9223372036854775806'),
+          '<ByteBuffer 7f ff ff ff ff ff ff fe>', '<ByteBuffer fe ff ff ff ff ff ff 7f>',
+        ],
       ];
-      var bytes = ByteBuffer.allocate(1);
+      const bytes = ByteBuffer.allocate(1);
       bytes.putLong(0);
       assert(bytes.toString() === '<ByteBuffer 00 00 00 00 00 00 00 00>');
       bytes.position(0);
       assert(bytes.getLong().toString() === '0');
-      cases.forEach(function (item) {
+      cases.forEach(function(item) {
         bytes.order(ByteBuffer.BIG_ENDIAN);
         bytes.putLong(0, item[0]);
         assert(bytes.toString() === item[1]);
@@ -373,9 +374,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('putDouble(), getDouble()', function () {
-    it('should put a double', function () {
-      var bytes = ByteBuffer.allocate(2);
+  describe('putDouble(), getDouble()', function() {
+    it('should put a double', function() {
+      const bytes = ByteBuffer.allocate(2);
       bytes.putDouble(1);
       assert(bytes.toString() === '<ByteBuffer 3f f0 00 00 00 00 00 00>');
       bytes.position(0);
@@ -424,9 +425,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('put()', function () {
-    it('should put byte', function () {
-      var bytes = ByteBuffer.allocate(1);
+  describe('put()', function() {
+    it('should put byte', function() {
+      const bytes = ByteBuffer.allocate(1);
       bytes.put(1);
       assert(bytes.toString() === '<ByteBuffer 01>');
       assert(bytes.get(0) === 1);
@@ -439,28 +440,28 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer 02 01>');
       assert(bytes.get(1) === 1);
 
-      bytes.put(new Buffer([255, 255, 255]));
+      bytes.put(new Buffer([ 255, 255, 255 ]));
       assert(bytes.toString() === '<ByteBuffer 02 01 ff ff ff>');
-      assert.deepEqual(bytes.get(2, 3), new Buffer([255, 255, 255]));
+      assert.deepEqual(bytes.get(2, 3), new Buffer([ 255, 255, 255 ]));
 
-      bytes.put(new Buffer([255, 254, 1]), 1, 2);
+      bytes.put(new Buffer([ 255, 254, 1 ]), 1, 2);
       assert(bytes.toString() === '<ByteBuffer 02 01 ff ff ff fe 01>');
-      assert.deepEqual(bytes.get(5, 2), new Buffer([254, 1]));
+      assert.deepEqual(bytes.get(5, 2), new Buffer([ 254, 1 ]));
 
       bytes.position(0);
-      assert.deepEqual(bytes.read(7), new Buffer([2, 1, 255, 255, 255, 254, 1]));
+      assert.deepEqual(bytes.read(7), new Buffer([ 2, 1, 255, 255, 255, 254, 1 ]));
       assert(bytes.position() === 7);
 
       bytes.position(0);
       bytes.skip(5);
-      assert.deepEqual(bytes.read(2), new Buffer([254, 1]));
+      assert.deepEqual(bytes.read(2), new Buffer([ 254, 1 ]));
       assert(bytes.position() === 7);
     });
   });
 
-  describe('putRawString()', function () {
-    it('should put raw string', function () {
-      var bytes = ByteBuffer.allocate(1);
+  describe('putRawString()', function() {
+    it('should put raw string', function() {
+      let bytes = ByteBuffer.allocate(1);
       bytes.putRawString('hello');
       bytes.putRawString(' world');
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f 20 77 6f 72 6c 64>');
@@ -488,7 +489,7 @@ describe('byte.test.js', function () {
 
     it('should 000000000xxxxxxx (0x0000 ~ 0x007f) => 0xxxxxxx (0x00 ~ 0x7f)', function() {
       // UTF-8
-      var bytes = ByteBuffer.allocate(1);
+      let bytes = ByteBuffer.allocate(1);
       bytes.putString(String.fromCharCode(0x0000));
       assert(bytes.toString() === '<ByteBuffer 00 00 00 01 00>');
       // CESU-8
@@ -526,7 +527,7 @@ describe('byte.test.js', function () {
 
     it('should 00000yyyyyxxxxxx (0x0080 ~ 0x07ff) => 110yyyyy (0xc0 ~ 0xdf) | 10xxxxxx (0x80 ~ 0xbf)', function() {
       // UTF-8
-      var bytes = ByteBuffer.allocate(1);
+      let bytes = ByteBuffer.allocate(1);
       bytes = ByteBuffer.allocate(1);
       bytes.putString(String.fromCharCode(0x80));
       assert(bytes.toString() === '<ByteBuffer 00 00 00 02 c2 80>');
@@ -574,7 +575,7 @@ describe('byte.test.js', function () {
 
     it('should zzzzyyyyyyxxxxxx (0x0800 ~ 0xffff) => 1110zzzz (0xe0 ~ 0xef) | 10yyyyyy (0x80 ~ 0xbf) | 10xxxxxx (0x80 ~ 0xbf)', function() {
       // UTF-8
-      var bytes = ByteBuffer.allocate(1);
+      let bytes = ByteBuffer.allocate(1);
       bytes = ByteBuffer.allocate(1);
       bytes.putString(String.fromCharCode(0x800));
       assert(bytes.toString() === '<ByteBuffer 00 00 00 03 e0 a0 80>');
@@ -629,25 +630,25 @@ describe('byte.test.js', function () {
       assert(bytes.toString() === '<ByteBuffer ef bf bf>');
     });
 
-    it('should put emoji', function () {
+    it('should put emoji', function() {
       // utf8
-      var bytes = ByteBuffer.allocate(1);
-      var str = 'hello\u9983\u5c32';
+      let bytes = ByteBuffer.allocate(1);
+      let str = 'hello\u9983\u5c32';
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f e9 a6 83 e5 b0 b2>');
       assert.deepEqual(bytes.getRawString(0, 11), str);
       assert.deepEqual(bytes.getRawStringByStringLength(0, 7), str);
       // gbk
-      var bytes = ByteBuffer.allocate(1);
-      var str = 'hello\ud83c\udf3c';
+      bytes = ByteBuffer.allocate(1);
+      str = 'hello\ud83c\udf3c';
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer 68 65 6c 6c 6f ed a0 bc ed bc bc>');
       assert.deepEqual(bytes.getRawString(0, 11), str);
       assert.deepEqual(bytes.getRawStringByStringLength(0, 7), str);
 
-      var bytes = ByteBuffer.allocate(1);
+      bytes = ByteBuffer.allocate(1);
       // java encode bytes: [-19, -96, -67, -19, -72, -128, 87, 119, 119, -23, -126, -93]
-      var str = '\ud83d\ude00Www那';
+      str = '\ud83d\ude00Www那';
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80 57 77 77 e9 82 a3>');
       assert.deepEqual(bytes.getRawString(0, 12), str);
@@ -655,52 +656,52 @@ describe('byte.test.js', function () {
 
       // Construction of a special test case which triggers the bug
       // of allocating insufficient space via _checkSize
-      var bytes = ByteBuffer.allocate(4);
-      var str = '\ud83d\ude00';
+      bytes = ByteBuffer.allocate(4);
+      str = '\ud83d\ude00';
       bytes.putRawString(str);
       assert(bytes.toString() === '<ByteBuffer ed a0 bd ed b8 80>');
     });
   });
 
-  describe('array(), copy()', function () {
-    it('should copy(start)', function () {
-      var bytes = ByteBuffer.allocate(8);
+  describe('array(), copy()', function() {
+    it('should copy(start)', function() {
+      const bytes = ByteBuffer.allocate(8);
       bytes.putInt(0);
       bytes.putInt(1);
-      assert.deepEqual(bytes.copy(4), new Buffer([0, 0, 0, 1]));
+      assert.deepEqual(bytes.copy(4), new Buffer([ 0, 0, 0, 1 ]));
     });
 
-    it('should copy(start, end)', function () {
-      var bytes = ByteBuffer.allocate(9);
+    it('should copy(start, end)', function() {
+      const bytes = ByteBuffer.allocate(9);
       bytes.putInt(0);
       bytes.putInt(1);
-      assert.deepEqual(bytes.copy(0, 8), new Buffer([0, 0, 0, 0, 0, 0, 0, 1]));
-      assert.deepEqual(bytes.copy(0, 9), new Buffer([0, 0, 0, 0, 0, 0, 0, 1]));
-      assert.deepEqual(bytes.copy(0, 4), new Buffer([0, 0, 0, 0]));
-      assert.deepEqual(bytes.copy(4, 8), new Buffer([0, 0, 0, 1]));
+      assert.deepEqual(bytes.copy(0, 8), new Buffer([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(0, 9), new Buffer([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(0, 4), new Buffer([ 0, 0, 0, 0 ]));
+      assert.deepEqual(bytes.copy(4, 8), new Buffer([ 0, 0, 0, 1 ]));
     });
   });
 
-  describe('_copy()', function () {
-    it('should splice < 2048 ok', function () {
-      var bytes = ByteBuffer.allocate(4096);
+  describe('_copy()', function() {
+    it('should splice < 2048 ok', function() {
+      const bytes = ByteBuffer.allocate(4096);
       bytes.putRawString('hello');
       bytes.putRawString('world');
       assert(bytes._copy(0, 5).toString() === 'hello');
     });
 
-    it('should splice > 2048 ok', function () {
-      var bytes = ByteBuffer.allocate(4096);
-      for (var i = 0; i < 800; i++) {
+    it('should splice > 2048 ok', function() {
+      const bytes = ByteBuffer.allocate(4096);
+      for (let i = 0; i < 800; i++) {
         bytes.putRawString('hello');
       }
       assert(bytes._copy(1000, 4000).toString().length === 3000);
     });
   });
 
-  describe('capacity()', function () {
-    it('should capacity()', function () {
-      var bytes = ByteBuffer.allocate(4);
+  describe('capacity()', function() {
+    it('should capacity()', function() {
+      const bytes = ByteBuffer.allocate(4);
       bytes.putInt(0);
       assert(bytes.capacity() === 4);
       bytes.putInt(1);
@@ -710,9 +711,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('remaining(), hasRemaining()', function () {
-    it('should remaining(), hasRemaining()', function () {
-      var bytes = ByteBuffer.allocate(8);
+  describe('remaining(), hasRemaining()', function() {
+    it('should remaining(), hasRemaining()', function() {
+      const bytes = ByteBuffer.allocate(8);
       assert(bytes.remaining() === 8);
       assert(bytes.hasRemaining());
       bytes.put(1);
@@ -728,9 +729,9 @@ describe('byte.test.js', function () {
     });
   });
 
-  describe('flip(), limit()', function () {
-    it('should flip(), limit()', function () {
-      var bytes = ByteBuffer.allocate(8);
+  describe('flip(), limit()', function() {
+    it('should flip(), limit()', function() {
+      const bytes = ByteBuffer.allocate(8);
       assert(bytes.limit() === 8);
       bytes.putInt(1);
       assert(bytes.limit() === 8);
@@ -738,47 +739,47 @@ describe('byte.test.js', function () {
       assert(bytes.limit() === 4);
     });
 
-    it('should limit(newLimit)', function () {
-      var bytes = ByteBuffer.allocate(8);
+    it('should limit(newLimit)', function() {
+      const bytes = ByteBuffer.allocate(8);
       assert(bytes.limit() === 8);
       assert(bytes.limit(4).limit() === 4);
     });
   });
 
-  describe('get(dst, offset, length)', function () {
-    it('should get(dst, offset, length)', function () {
-      var bytes = ByteBuffer.allocate(4);
+  describe('get(dst, offset, length)', function() {
+    it('should get(dst, offset, length)', function() {
+      const bytes = ByteBuffer.allocate(4);
       bytes.putInt(1);
       bytes.flip(); // switch to read mode
-      var buf = new Buffer(4);
+      const buf = new Buffer(4);
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
+      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 1 ]));
 
-      var buf2 = new Buffer(1);
+      const buf2 = new Buffer(1);
       assert.throws(function() {
         bytes.get(buf2);
       }, null, 'BufferOverflowException');
     });
 
-    it('should get(dst, offset, length) again', function () {
-      var bytes = ByteBuffer.allocate(8);
+    it('should get(dst, offset, length) again', function() {
+      const bytes = ByteBuffer.allocate(8);
       bytes.putInt(1);
       bytes.putInt(5);
       bytes.flip(); // switch to read mode
-      var buf = new Buffer(4);
+      const buf = new Buffer(4);
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([0, 0, 0, 1]));
+      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 1 ]));
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([0, 0, 0, 5]));
+      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 5 ]));
     });
   });
 
-  describe('getRawStringByStringLength()', function () {
-    it('should get with mixed sting success', function () {
-      var bytes = ByteBuffer.allocate(1000);
-      var str = '你好啊,1234,abcde,\ud83d\ude00Www那';
+  describe('getRawStringByStringLength()', function() {
+    it('should get with mixed sting success', function() {
+      const bytes = ByteBuffer.allocate(1000);
+      const str = '你好啊,1234,abcde,\ud83d\ude00Www那';
       bytes.putRawString(str);
-      var pos = bytes.position();
+      const pos = bytes.position();
       bytes.position(0);
       assert(str === bytes.getRawStringByStringLength(0, str.length));
       assert(bytes.position() === 0);
@@ -786,42 +787,42 @@ describe('byte.test.js', function () {
       assert(bytes.position() === pos);
     });
 
-    it('should throw if encode error', function () {
-      var bytes = ByteBuffer.allocate(1000);
-      var str = '你好啊,1234,abcde,\ud83d\ude00Www那';
+    it('should throw if encode error', function() {
+      const bytes = ByteBuffer.allocate(1000);
+      const str = '你好啊,1234,abcde,\ud83d\ude00Www那';
       bytes.putRawString(str);
       bytes.put(0xfd);
-      assert.throws(function () {
+      assert.throws(function() {
         bytes.getRawStringByStringLength(0, str.length + 1);
       }, null, 'string is not valid UTF-8 encode');
     });
   });
 
   function initBuff(buf) {
-    for (var i = 0; i < buf.length; i++) buf[i] = 0;
+    for (let i = 0; i < buf.length; i++) buf[i] = 0;
   }
 
-  describe('memcpy()', function () {
-    var bytes = ByteBuffer.allocate(1000);
-    it('should fill hello', function () {
-      var str = 'hello';
+  describe('memcpy()', function() {
+    const bytes = ByteBuffer.allocate(1000);
+    it('should fill hello', function() {
+      const str = 'hello';
       bytes.putRawString(str);
-      var buff = new Buffer(10);
+      const buff = new Buffer(10);
       initBuff(buff);
-      var copied = bytes.memcpy(buff);
+      const copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 5);
       assert.strictEqual(buff.slice(0, 5).toString(), 'hello');
 
-      for (var i = 5; i < 10; i++) {
+      for (let i = 5; i < 10; i++) {
         assert.strictEqual(buff[i], 0);
       }
     });
 
-    it('should fill hel', function () {
-      var buff = new Buffer(3);
+    it('should fill hel', function() {
+      const buff = new Buffer(3);
       initBuff(buff);
-      var copied = bytes.memcpy(buff);
+      const copied = bytes.memcpy(buff);
 
       assert.strictEqual(copied, 3);
       assert.strictEqual(buff.toString(), 'hel');
