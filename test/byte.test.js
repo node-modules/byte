@@ -19,7 +19,7 @@ describe('byte.test.js', function() {
       bytes.putString('');
       bytes.putString('');
       bytes.putString(null);
-      bytes.putString(new Buffer(''));
+      bytes.putString(Buffer.from(''));
       bytes.putString(0, '');
 
       bytes.position(0);
@@ -35,10 +35,10 @@ describe('byte.test.js', function() {
       assert(bytes.getString(0) === 'foo, 中文');
       bytes.putString(0, 'foo, 中国');
       assert(bytes.getString(0) === 'foo, 中国');
-      bytes.putString(0, new Buffer('foo, 中国'));
+      bytes.putString(0, Buffer.from('foo, 中国'));
       assert(bytes.getString(0) === 'foo, 中国');
       bytes.putString('foo2');
-      assert(bytes.getString(new Buffer('foo, 中国').length + 4) === 'foo2');
+      assert(bytes.getString(Buffer.from('foo, 中国').length + 4) === 'foo2');
 
       bytes.position(0);
       assert(bytes.getString() === 'foo, 中国');
@@ -60,7 +60,7 @@ describe('byte.test.js', function() {
       bytes.putCString('bar123123, \u0000中文\u0000');
       bytes.putCString('foo2foo, \u0000中文\u0000');
       assert(
-        bytes.getCString(new Buffer('bar123123, \u0000中文\u0000').length + 4 + 1) === 'foo2foo, \u0000中文\u0000'
+        bytes.getCString(Buffer.from('bar123123, \u0000中文\u0000').length + 4 + 1) === 'foo2foo, \u0000中文\u0000'
       );
 
       bytes.position(0);
@@ -440,21 +440,21 @@ describe('byte.test.js', function() {
       assert(bytes.toString() === '<ByteBuffer 02 01>');
       assert(bytes.get(1) === 1);
 
-      bytes.put(new Buffer([ 255, 255, 255 ]));
+      bytes.put(Buffer.from([ 255, 255, 255 ]));
       assert(bytes.toString() === '<ByteBuffer 02 01 ff ff ff>');
-      assert.deepEqual(bytes.get(2, 3), new Buffer([ 255, 255, 255 ]));
+      assert.deepEqual(bytes.get(2, 3), Buffer.from([ 255, 255, 255 ]));
 
-      bytes.put(new Buffer([ 255, 254, 1 ]), 1, 2);
+      bytes.put(Buffer.from([ 255, 254, 1 ]), 1, 2);
       assert(bytes.toString() === '<ByteBuffer 02 01 ff ff ff fe 01>');
-      assert.deepEqual(bytes.get(5, 2), new Buffer([ 254, 1 ]));
+      assert.deepEqual(bytes.get(5, 2), Buffer.from([ 254, 1 ]));
 
       bytes.position(0);
-      assert.deepEqual(bytes.read(7), new Buffer([ 2, 1, 255, 255, 255, 254, 1 ]));
+      assert.deepEqual(bytes.read(7), Buffer.from([ 2, 1, 255, 255, 255, 254, 1 ]));
       assert(bytes.position() === 7);
 
       bytes.position(0);
       bytes.skip(5);
-      assert.deepEqual(bytes.read(2), new Buffer([ 254, 1 ]));
+      assert.deepEqual(bytes.read(2), Buffer.from([ 254, 1 ]));
       assert(bytes.position() === 7);
     });
   });
@@ -668,17 +668,17 @@ describe('byte.test.js', function() {
       const bytes = ByteBuffer.allocate(8);
       bytes.putInt(0);
       bytes.putInt(1);
-      assert.deepEqual(bytes.copy(4), new Buffer([ 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(4), Buffer.from([ 0, 0, 0, 1 ]));
     });
 
     it('should copy(start, end)', function() {
       const bytes = ByteBuffer.allocate(9);
       bytes.putInt(0);
       bytes.putInt(1);
-      assert.deepEqual(bytes.copy(0, 8), new Buffer([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
-      assert.deepEqual(bytes.copy(0, 9), new Buffer([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
-      assert.deepEqual(bytes.copy(0, 4), new Buffer([ 0, 0, 0, 0 ]));
-      assert.deepEqual(bytes.copy(4, 8), new Buffer([ 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(0, 8), Buffer.from([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(0, 9), Buffer.from([ 0, 0, 0, 0, 0, 0, 0, 1 ]));
+      assert.deepEqual(bytes.copy(0, 4), Buffer.from([ 0, 0, 0, 0 ]));
+      assert.deepEqual(bytes.copy(4, 8), Buffer.from([ 0, 0, 0, 1 ]));
     });
   });
 
@@ -751,11 +751,11 @@ describe('byte.test.js', function() {
       const bytes = ByteBuffer.allocate(4);
       bytes.putInt(1);
       bytes.flip(); // switch to read mode
-      const buf = new Buffer(4);
+      const buf = Buffer.alloc(4);
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 1 ]));
+      assert.deepEqual(buf, Buffer.from([ 0, 0, 0, 1 ]));
 
-      const buf2 = new Buffer(1);
+      const buf2 = Buffer.alloc(1);
       assert.throws(function() {
         bytes.get(buf2);
       }, null, 'BufferOverflowException');
@@ -766,11 +766,11 @@ describe('byte.test.js', function() {
       bytes.putInt(1);
       bytes.putInt(5);
       bytes.flip(); // switch to read mode
-      const buf = new Buffer(4);
+      const buf = Buffer.alloc(4);
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 1 ]));
+      assert.deepEqual(buf, Buffer.from([ 0, 0, 0, 1 ]));
       bytes.get(buf);
-      assert.deepEqual(buf, new Buffer([ 0, 0, 0, 5 ]));
+      assert.deepEqual(buf, Buffer.from([ 0, 0, 0, 5 ]));
     });
   });
 
@@ -807,7 +807,7 @@ describe('byte.test.js', function() {
     it('should fill hello', function() {
       const str = 'hello';
       bytes.putRawString(str);
-      const buff = new Buffer(10);
+      const buff = Buffer.alloc(10);
       initBuff(buff);
       const copied = bytes.memcpy(buff);
 
@@ -820,7 +820,7 @@ describe('byte.test.js', function() {
     });
 
     it('should fill hel', function() {
-      const buff = new Buffer(3);
+      const buff = Buffer.alloc(3);
       initBuff(buff);
       const copied = bytes.memcpy(buff);
 
