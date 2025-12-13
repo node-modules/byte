@@ -7,6 +7,9 @@ module.exports = {
   exclude: [
     'test/fixtures',
   ],
+  dep: [
+    'long',
+  ],
   devdep: [
     'autod',
     'egg-bin',
