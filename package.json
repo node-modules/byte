@@ -26,7 +26,7 @@
     "autod": "^3.0.1",
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
-    "egg-bin": "^4.7.0",
+    "egg-bin": "^6.0.0",
     "egg-ci": "^1.8.0",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
