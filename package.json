@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "long": "^4.0.0",
+    "long": "^5.0.0",
     "utility": "^1.13.1"
   },
   "devDependencies": {
