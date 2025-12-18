@@ -20,7 +20,7 @@
   "dependencies": {
     "debug": "^3.1.0",
     "long": "^4.0.0",
-    "utility": "^1.13.1"
+    "utility": "^2.0.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
