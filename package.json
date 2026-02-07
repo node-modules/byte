@@ -28,7 +28,7 @@
     "benchmark": "^2.1.4",
     "egg-bin": "^4.7.0",
     "egg-ci": "^1.8.0",
-    "eslint": "^4.19.1",
+    "eslint": "^10.0.0",
     "eslint-config-egg": "^7.0.0",
     "fastbench": "^1.0.1",
     "optimized": "^1.2.0"
